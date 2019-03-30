@@ -1,0 +1,2 @@
+class RedeemItem < ApplicationRecord
+end
