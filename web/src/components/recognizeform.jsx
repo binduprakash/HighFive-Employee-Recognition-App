@@ -89,7 +89,7 @@ class Button extends React.Component {
   class Form extends React.Component {
     render() {
       return (
-        <form method='' action=''>
+        <form method='POST' action='http://localhost:3000/api/v1/rewards'>
          <Select
             hasLabel='true'
             htmlFor='select'
@@ -97,7 +97,6 @@ class Button extends React.Component {
             options='Tyler, Bindu, Maddie'
             required='true'
           />
-          
           
           <Select
             hasLabel='true'

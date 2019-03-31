@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBar from "./navbar.jsx"
+import Header from './common/header'
 import Form from './recognizeform.jsx';
 
 require('../styles/navbar.css')
@@ -9,7 +9,7 @@ class Recognize extends React.Component {
   render() {
     return (
       <div>
-        < NavBar />
+        < Header />
         <h1>Recognize a Co-worker!</h1>
         < Form />
       </div>
