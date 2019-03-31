@@ -17,15 +17,15 @@ class Overview extends Component {
         <div className="Sidebar">
             <ul>
                 <li>
-                    <Link to={`${match.url}/recent-rewards`}>Recent Rewards</Link>
+                    <Link to={`/overview/recent-rewards`}>Recent Rewards</Link>
                 </li>
                 <li>
-                    <Link to={`${match.url}/approval`}>Approvals</Link>
+                    <Link to={`/overview/approval`}>Approvals</Link>
                 </li>
             </ul>
             <div className="Sidebar-Content">
-                <Route path={`${match.url}/recent-rewards`} component={RecentRewards}/>
-                <Route path={`${match.url}/approval`} component={Approvals}/>
+                <Route path='/overview/recent-rewards' component={RecentRewards}/>
+                <Route path='/overview/approval' component={Approvals}/>
             </div>
         </div>
       </div>
