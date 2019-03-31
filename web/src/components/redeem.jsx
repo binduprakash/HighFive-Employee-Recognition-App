@@ -1,17 +1,11 @@
 import React from 'react'
-import NavBar from "./navbar.jsx"
-
-require('../styles/navbar.css')
-
 class Redeem extends React.Component {
   render() {
     return (
-      <div>
-        < NavBar />
+      <div className="Redeem">
         <h1>Redeem</h1>
       </div>
-      
-    ) 
+    )
   }
 }
 export default Redeem
