@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Overview extends Component {
   render() {
     return (
-      <div className="Header">
+      <div className="header">
         <h1>High Five</h1>
       </div>
     );

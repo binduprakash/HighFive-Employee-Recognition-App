@@ -7,6 +7,8 @@ import Recognize from './recognize'
 import RewardsActivities from './rewardsActivities'
 import Redeem from './redeem'
 
+require('../styles/navbar.css')
+
 class NavBar extends Component {
   render() {
     return (
