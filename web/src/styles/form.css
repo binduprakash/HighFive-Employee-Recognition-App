@@ -1,0 +1,82 @@
+h1 {
+	text-align: center
+}
+
+html {
+	font-size: 20px;
+  }
+  
+  body {
+	font: 100% / 1.414 sans-serif;
+  }
+  
+  form {
+	margin-right: auto;
+	margin-left: auto;
+	max-width: 500px;
+  }
+  
+  fieldset {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	
+	& + & {
+	  margin-top: 24px;
+	}
+  }
+  
+  label {
+	margin-bottom: 8px;
+	display: block;
+	color: #2b2e4a;
+  }
+  
+  input:not([type=checkbox]):not([type=radio]),
+  select,
+  textarea {
+	padding: 8px;
+	width: 100%;
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px solid #bdc3c7;
+	border-left: 0;
+	transition: border-bottom-color .15s ease-in;
+	
+	&:focus {
+	  outline: 0;
+	  border-bottom-color: #3fc1c9;
+	}
+  }
+  
+  
+  textarea {
+	resize: vertical;
+  }
+  
+  button {
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+	padding: 8px 16px;
+	font-size: 16px;
+	color: #fff;
+	background-color: #3fc1c9;
+	border: 0;
+	border-radius: 2px;
+	cursor: pointer;
+	transition: background-color .15s ease-in;
+	
+	&:focus:active {
+	  background-color: darken(#3fc1c9, 8%);
+	}
+	
+	&:focus {
+	  outline: 0;
+	}
+	
+	&:hover {
+	  background-color: lighten(#3fc1c9, 15%);
+	}
+  }
+  
