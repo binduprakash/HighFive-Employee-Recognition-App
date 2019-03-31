@@ -10,8 +10,8 @@ import Redeem from './redeem'
 class NavBar extends Component {
   render() {
     return (
-      <div className="NavBar">
-        <ul>
+      <div className="header_2">
+        <ul className="main-nav">
           <li>
             <Link to="/overview">Overview</Link>
           </li>
@@ -22,7 +22,7 @@ class NavBar extends Component {
             <Link to="/redeem">Redeem Rewards</Link>
           </li>
           <li>
-            <Link to="/rewards_acivities">Rewards History</Link>
+            <Link to="/rewards_activities">Rewards History</Link>
           </li>
         </ul>
       </div>
@@ -43,7 +43,7 @@ export default class App extends Component {
               <Route path="/recognize" component={Recognize} />
               <Route path="/redeem" component={Redeem} />
               <Route path="/rewards_activities" component={RewardsActivities} />
-              <Redirect from="/" to="/overview"/>
+              <Redirect from="/" to="/overview" />
             </Switch>
           </div>
         </Router>
