@@ -23,7 +23,7 @@ class Api::V1::RewardsController < ApplicationController
 
     # POST /rewards
     def create
-        @reward = Article.new(reward_params)
+        @reward = Reward.new(reward_params)
         if @reward.save
             render json: @reward, status: :created, location: api_v1_reward_url(@reward)
         else
