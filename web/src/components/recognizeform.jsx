@@ -1,5 +1,7 @@
 import React from 'react'
 
+//starter code/template used from: https://codepen.io/alexdevero/pen/oBLbMb
+
 // Create component for button
 class Button extends React.Component {
     render() {
