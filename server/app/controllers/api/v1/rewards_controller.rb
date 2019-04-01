@@ -23,7 +23,8 @@ class Api::V1::RewardsController < ApplicationController
 
     # POST /rewards
     def create
-        @reward = Article.new(reward_params)
+        @reward = Reward.new(reward_params)
+        
         if @reward.save
             render json: @reward, status: :created, location: api_v1_reward_url(@reward)
         else
@@ -34,20 +35,18 @@ class Api::V1::RewardsController < ApplicationController
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_reward
-        @reward = Reward.find(params[:id])
+    @reward = Reward.find(params[:id])
     end
 
     # Only allow a trusted parameter “white list” through.
     def reward_params
-        params.require(
-            :reward
-        ).permit(
-            :from_employee_id,
-            :to_employee_id, 
-            :approver_employee_id,
+        params.permit(
             :reward_message,
             :approver_message,
+            :to_employee_id, 
             :level_id,
+            :from_employee_id,
+            :approver_employee_id,
             :status,
             :approved_at
         )
