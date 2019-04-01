@@ -1,4 +1,5 @@
 import React from 'react'
+import API from '../api';
 
 //starter code/template used from: https://codepen.io/alexdevero/pen/oBLbMb
 
@@ -30,12 +31,11 @@ class Button extends React.Component {
   // Create component for select input
   class Select extends React.Component {
     render() {
-      // Get all options from option prop
-      const selectOptions = this.props.options.split(', ');
   
-      // Generate list of options
-      const selectOptionsList = selectOptions.map((selectOption, index) => {
-        return <option key={index} value={index}>{selectOption}</option>
+      // Generate list of options from object
+      const selectOptionsList = this.props.options.map((option, index) => {
+      //value posted to db, text displayed in dropdown  
+        return <option key={index} value={option.id}>{option.text}</option>
       });
   
       return (
@@ -87,16 +87,37 @@ class Button extends React.Component {
   
   // Create component for form
   class Form extends React.Component {
+    state = {
+      employees: [],
+      pointsLevels: []
+    }
+    
+    componentDidMount() {
+      API.get('employees').then(res => {
+          const employees = res.data;
+          this.setState({ employees });
+      })
+      API.get('points_levels').then(res => {
+        const pointsLevels = res.data;
+        console.log("***",pointsLevels)
+        this.setState({ pointsLevels });
+    })
+    }
+    
     render() {
       //create const.js and reference in other files for deployment (NOTE)
       const API_HOST = 'http://localhost:3000';
+      
       return (
         <form method='POST' action={`${API_HOST}/api/v1/rewards`}>
          <Select
             hasLabel='true'
             htmlFor='select'
-            label='Please Select Employee to Recognize'
-            options='1, 2, 3'
+            label='Select Employee to Recognize'
+            options= {this.state.employees.map(employee => ({
+              id: employee.id, text: " "+ employee.first_name +" "+ employee.last_name
+            })
+            )}
             required='true'
             name='to_employee_id'
           />
@@ -104,12 +125,15 @@ class Button extends React.Component {
           <Select
             hasLabel='true'
             htmlFor='select'
-            label='Please Select Points Level'
-            options='1, 2, 3, 4, 5'
+            label='Select Points Level'
+            options= {this.state.pointsLevels.map(level => ({
+              id: level.id, text: level.level_name + " - " + level.points + " points"
+            })
+            )}
             required='true'
             name='level_id'
           />
-          
+
           <Textarea
             hasLabel='true'
             htmlFor='textarea'
@@ -129,6 +153,7 @@ class Button extends React.Component {
           />
 
           <input name='from_employee_id' type="hidden" value='1'/>
+          <input name='approver_employee_id' type="hidden" value ='2' />
           
           <Button
             type='submit'
