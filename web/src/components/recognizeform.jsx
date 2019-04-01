@@ -88,22 +88,26 @@ class Button extends React.Component {
   // Create component for form
   class Form extends React.Component {
     render() {
+      //create const.js and reference in other files for deployment (NOTE)
+      const API_HOST = 'http://localhost:3000';
       return (
-        <form method='POST' action='http://localhost:3000/api/v1/rewards'>
+        <form method='POST' action={`${API_HOST}/api/v1/rewards`}>
          <Select
             hasLabel='true'
             htmlFor='select'
             label='Please Select Employee to Recognize'
-            options='Tyler, Bindu, Maddie'
+            options='1, 2, 3'
             required='true'
+            name='to_employee_id'
           />
           
           <Select
             hasLabel='true'
             htmlFor='select'
-            label='Option 1 - Please Select Points'
-            options='one, two, three, option four, five'
+            label='Please Select Points Level'
+            options='1, 2, 3, 4, 5'
             required='true'
+            name='level_id'
           />
           
           <Textarea
@@ -112,6 +116,7 @@ class Button extends React.Component {
             label='Message to Employee'
             required='true'
             rows='10'
+            name='reward_message'
           />
           
           <Textarea
@@ -120,7 +125,10 @@ class Button extends React.Component {
             label='Message to Manager'
             required='true'
             rows='10'
+            name='approver_message'
           />
+
+          <input name='from_employee_id' type="hidden" value='1'/>
           
           <Button
             type='submit'
