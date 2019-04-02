@@ -39,7 +39,7 @@ class Redeem extends React.Component {
     console.log('^^^', productList)
     
     const productListing = productList.map(product => (
-      <RedeemItems key={product.id} description={product.description} test="hello"/> 
+      <RedeemItems key={product.id} name={product.name} description={product.description} points={product.points}/> 
     
     ))
       

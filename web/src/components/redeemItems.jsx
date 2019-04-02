@@ -5,18 +5,7 @@ require('../styles/products.css')
 
 class RedeemItems extends React.Component {
   
-  
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  render() {
+  handleProduct = () => {
     return (
       <div>
         <main>
@@ -33,11 +22,11 @@ class RedeemItems extends React.Component {
                   <header>
                     <a>
                       <img alt="Tim Horton Gift Card" src="https://img.buyatab.com/gcp/view/cards/259/2110/big/valentines-01b3d08d-6deb-4d69-bcc7-ce4b51cd43d8.png"  style={{height: "200px", width: "350px;"}}/>
-                      <h4> {this.props.description} </h4>
+                      <h4> {this.props.name} </h4>
                     </a>  
                   </header>
                     <p className="description">
-                      Banjo tousled biodiesel freegan forage lomo meggings intelligentsia.
+                      {this.props.description}
                     </p>
                     <footer className="actions">
                       <form className="button_to" method="post" action="/"><button class="btn btn-primary" type="submit">
@@ -47,7 +36,7 @@ class RedeemItems extends React.Component {
                     </footer>
 
                     <p className="price">
-                      1,000 points
+                      {this.props.points} Points
                     </p>
                 </article>
 
@@ -57,6 +46,17 @@ class RedeemItems extends React.Component {
 
           </main>
 
+      </div>
+
+    )
+
+  }
+  
+  
+  render() {
+    return (
+      <div>
+        {this.handleProduct()}
       </div>
       
     )
