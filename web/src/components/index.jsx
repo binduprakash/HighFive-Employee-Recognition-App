@@ -4,6 +4,7 @@ import Header from './common/header'
 import Routes from './Routes'
 import { withCookies, Cookies } from 'react-cookie';
 import { compose } from 'recompose'
+import API from '../api';
 
 require('../styles/navbar.css')
 
@@ -51,6 +52,12 @@ class App extends Component {
     const { cookies } = this.props;
     if (cookies.get('isAuthenticated') === 'true') {
       this.userHasAuthenticated(true, cookies.get('employeeId') || null);
+      
+      console.log('***************',this.props.cookies.cookies.employeeId)
+      console.log('before', this.state.employeeId)
+      this.state.employeeId = this.props.cookies.cookies.employeeId;
+      console.log('^^^^^^^^^^^^^^^',this.state.employeeId)
+      console.log('----',)
     } else {
       this.userHasAuthenticated(false, null);
     }
@@ -76,7 +83,7 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App">
-        <Header />
+        <Header employeeId={this.state.employeeId} pointsAvailable={500}/>
         <Router>
           <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
           <div>
