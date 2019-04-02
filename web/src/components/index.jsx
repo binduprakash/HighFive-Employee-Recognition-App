@@ -45,32 +45,60 @@ class App extends Component {
     this.state = {
       isAuthenticated: false,
       isAuthenticating: true,
-      employeeId: null
+      employeeId: null,
+      pointsAvailable: null,
+      employees: []
     };
   }
+  
   componentDidMount(){
     const { cookies } = this.props;
     if (cookies.get('isAuthenticated') === 'true') {
       this.userHasAuthenticated(true, cookies.get('employeeId') || null);
       
       console.log('***************',this.props.cookies.cookies.employeeId)
-      console.log('before', this.state.employeeId)
       this.state.employeeId = this.props.cookies.cookies.employeeId;
       console.log('^^^^^^^^^^^^^^^',this.state.employeeId)
-      console.log('----',)
+      
+      //console.log('666666', this.state)
+      //console.log('--->>>>>',this.state.pointsAvailable)
     } else {
       this.userHasAuthenticated(false, null);
     }
     this.setState({ isAuthenticating: false });
   }
+
   userHasAuthenticated = (authenticated, employeeId) => {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
     cookies.set("employeeId", employeeId, {path: "/"});
-    this.setState({ 
-      isAuthenticated: authenticated, 
-      employeeId: employeeId
-     });
+    API.get('employees').then(res => {
+      const employees = res.data;
+      this.setState({ employees: employees });
+      console.log('<<<<<<', employees)
+      console.log('333333',this.state.employees)
+
+      console.log("****",employeeId)
+
+      let employeeObject = this.state.employees.find(x => x.id == employeeId)
+      console.log("&&&&&",employeeObject)
+
+      if (authenticated === true) {
+        this.setState({ 
+          pointsAvailable: employeeObject.available_points
+        })
+      }
+
+      
+      
+      
+      this.setState({ 
+            isAuthenticated: authenticated, 
+            employeeId: employeeId
+          });
+    })
+    
+    
   }
   handleLogout = event => {
     this.userHasAuthenticated(false, null);
@@ -83,7 +111,7 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App">
-        <Header employeeId={this.state.employeeId} pointsAvailable={500}/>
+        <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable}/>
         <Router>
           <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
           <div>
