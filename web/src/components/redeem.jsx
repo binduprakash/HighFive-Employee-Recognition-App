@@ -47,8 +47,23 @@ class Redeem extends React.Component {
     return (
       <div className="container">
         <h1>Redemption Page</h1>
+        <main>
+          <section className="products-index">
+
+        <header className="page-header">
+          <h1>Products</h1>
+        </header>
+
+              <div className="products">
+        
+        
         {productListing}
-    
+
+        </div>
+
+</section>
+
+</main>
           
   
       </div>

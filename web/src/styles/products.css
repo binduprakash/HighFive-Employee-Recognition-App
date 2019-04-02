@@ -23,11 +23,10 @@ body {
     flex:      1;
     max-width: 260px;
     position:  relative;
-    width: 50%;
     background-color: #C5E99B;
     
 
-    border:        1px solid #ccc;
+    border:        1px solid rgb(20, 9, 9);
     border-radius: 5px;
     padding:       15px;
     padding-bottom: 80px;
