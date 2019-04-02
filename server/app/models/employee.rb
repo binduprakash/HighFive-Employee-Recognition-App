@@ -4,13 +4,10 @@ class Employee < ApplicationRecord
 
     # Validations
     validates :email, presence: true, uniqueness: { case_sensitive: false }
-    validates :password, presence: true, length: { minimum: 8 }
-
-    has_secure_password
 
     def self.authenticate_with_credentials(email, password)
         employee = Employee.find_by_email(email)
-        if employee && employee.authenticate(password)
+        if employee && employee.password_digest == password
             employee
         end
     end
