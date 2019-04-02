@@ -10,9 +10,7 @@ class Redeem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: "Anonymous",
-      messages: [],
-      userCount: 0,
+      cart: [],
       redeemItems: []
     }
   }
@@ -32,14 +30,20 @@ class Redeem extends React.Component {
   }
     
   }
-
+   addToCart = redeemItemId => {
+    let cart = this.state.cart;
+    cart.push(redeemItemId);
+    this.setState({cart});
+    alert("item added");
+  }
 
   render() {
     const productList = this.state.redeemItems
     console.log('^^^', productList)
     
+    
     const productListing = productList.map(product => (
-      <RedeemItems key={product.id} name={product.name} description={product.description} points={product.points} image={product.image_url}/> 
+      <RedeemItems key={product.id} id={product.id} name={product.name} description={product.description} points={product.points} image={product.image_url} addToCart={this.addToCart}/> 
     
     ))
       
@@ -51,11 +55,15 @@ class Redeem extends React.Component {
           <section className="products-index">
             <header className="page-header">
               <h1>Products</h1>
+              <a href="#"><span className="myCart">My Cart({this.state.cart.length})</span></a>
+              
             </header>
 
             <div className="products">
+            
               {productListing}
             </div>
+            <button>Proceed To Checkout</button>
 
           </section>
         </main>

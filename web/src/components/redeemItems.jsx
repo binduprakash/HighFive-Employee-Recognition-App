@@ -17,14 +17,12 @@ class RedeemItems extends React.Component {
               {this.props.description}
             </p>
             <footer className="actions">
-              <form className="button_to" method="post" action="/"><button class="btn btn-primary" type="submit">
-                <i className="fa fa-shopping-cart"></i> Add
-                </button><input type="hidden" name="authenticity_token" value="9orHr20LFFUjRmjj6NkGi+jLbvIqLgKa8qSo8XBcuLgwkakZgToi2dLc9OwwLayKsZK0lDTR9W6pfAOD9aHSgA==" />
-              </form>    
+              <button onClick={this.props.addToCart}>
+              Add</button>
             </footer>
             <p className="price">
               {this.props.points} Points
-            </p>
+            </p> 
         </article>
       </div>
     )
