@@ -1,8 +1,42 @@
 .Sidebar {
     float: right;
-    background-color: aquamarine;
+    background-color: rgb(177, 199, 192);
     margin-right: 20px;
-    
-    
+    height: 600px;
+    width: 450px;
+    display: flex;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: -250px;
 
+}
+
+.Sidebar ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px 10px 10px 10px; 
+    padding: 10px; 
+    vertical-align: top;
+    margin-bottom: 500px;
+    position: relative;
+    font-size: 18px;
+}
+
+.Sidebar li:nth-child(1) {
+    
+    background-color: rgb(165, 95, 95);
+    padding: 10px 10px 10px 10px;
+}
+
+.Sidebar li:nth-child(2) {
+    
+    float: left;
+    background-color: rgb(94, 143, 199);
+    padding: 10px 10px 10px 10px;
+}
+
+
+.Overview {
+    margin: 0 auto;
+    max-width: 700px;
 }
