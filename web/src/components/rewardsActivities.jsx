@@ -1,4 +1,5 @@
 import React from 'react'
+
 class RewardsActivities extends React.Component {
   componentDidMount(){
     if(!this.props.isAuthenticated){

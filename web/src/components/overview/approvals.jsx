@@ -11,7 +11,7 @@ class Approvals extends Component {
         <Reward giver={'Maddie'} recipient={'Tyler'} points={20} />
         <Reward giver={'Tyler'} recipient={'Maddie'} points={20} />
     
-        {/* <h3>Approvals Code Goes Here</h3> */}
+        
       </div>
     );
   }
