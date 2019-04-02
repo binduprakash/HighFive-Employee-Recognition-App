@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Link, withRouter } from 'react-router-dom';
 import Header from './common/header'
 import Routes from './Routes'
 import { withCookies, Cookies } from 'react-cookie';
-import { compose } from 'recompose'
+import { compose } from 'recompose';
+import API from '../api';
 
 require('../styles/navbar.css')
 
@@ -44,7 +45,9 @@ class App extends Component {
     this.state = {
       isAuthenticated: false,
       isAuthenticating: true,
-      employeeId: null
+      employeeId: null,
+      pointsAvailable: null,
+      employees: []
     };
   }
   componentDidMount(){
@@ -60,13 +63,29 @@ class App extends Component {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
     cookies.set("employeeId", employeeId, {path: "/"});
+    
     this.setState({ 
-      isAuthenticated: authenticated, 
-      employeeId: employeeId
+      isAuthenticated: authenticated,
+      employeeId: employeeId 
      });
+     API.get('employees').then(res => {
+      const employees = res.data;
+      this.setState({ employees: employees });
+
+      let employeeObject = this.state.employees.find(x => x.id == employeeId)
+
+      if (authenticated === true) {
+        this.setState({ 
+          pointsAvailable: employeeObject.available_points
+        })
+      }
+    })
   }
   handleLogout = event => {
     this.userHasAuthenticated(false, null);
+    this.setState({ 
+      pointsAvailable: null
+    })
   }
   render() {
     const childProps = {
@@ -76,7 +95,7 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App">
-        <Header />
+        <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable}/>
         <Router>
           <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
           <div>

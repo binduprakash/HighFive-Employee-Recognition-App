@@ -17,10 +17,6 @@ class Redeem extends React.Component {
     }
   }
 
-  // state = {
-  //   redeemItems: []
-  // }
-
   componentDidMount() {
     if(!this.props.isAuthenticated){
       alert('Login In');
