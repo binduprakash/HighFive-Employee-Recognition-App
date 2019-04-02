@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Reward from './reward';
 
+
+
 class RecentRewards extends Component {
   render() {
     return (

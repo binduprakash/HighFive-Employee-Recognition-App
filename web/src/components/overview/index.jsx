@@ -5,6 +5,8 @@ import Profile from './profile'
 import RecentRewards from './recent-rewards'
 import Approvals from './approvals'
 
+import '../../styles/overview.css'
+
 class Overview extends Component {
   render() {
     const { match } = this.props;
