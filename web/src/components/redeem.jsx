@@ -39,7 +39,7 @@ class Redeem extends React.Component {
     console.log('^^^', productList)
     
     const productListing = productList.map(product => (
-      <RedeemItems key={product.id} name={product.name} description={product.description} points={product.points}/> 
+      <RedeemItems key={product.id} name={product.name} description={product.description} points={product.points} image={product.image_url}/> 
     
     ))
       
@@ -49,23 +49,16 @@ class Redeem extends React.Component {
         <h1>Redemption Page</h1>
         <main>
           <section className="products-index">
+            <header className="page-header">
+              <h1>Products</h1>
+            </header>
 
-        <header className="page-header">
-          <h1>Products</h1>
-        </header>
+            <div className="products">
+              {productListing}
+            </div>
 
-              <div className="products">
-        
-        
-        {productListing}
-
-        </div>
-
-</section>
-
-</main>
-          
-  
+          </section>
+        </main>
       </div>
     )
   }

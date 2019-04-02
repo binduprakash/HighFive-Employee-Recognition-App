@@ -11,7 +11,7 @@ puts "Seeding HighFive App data ..."
 
 # Helper functions
 def open_asset(file_name)
-  File.open(Rails.root.join('db', 'seed_assets', file_name))
+  File.join('seed_assets', file_name)
 end
 
 # Only run on development (local) instances not on production, etc.
