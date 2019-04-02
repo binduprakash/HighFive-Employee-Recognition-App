@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :redeem_items, only: [:index, :show]
       resources :orders, only: [:index, :show, :create]
       resources :order_items, only: [:index, :show, :create]
+      post '/authenticate' => 'sessions#authenticate'
     end
   end
 end

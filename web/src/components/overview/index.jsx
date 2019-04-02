@@ -8,6 +8,12 @@ import Approvals from './approvals'
 import '../../styles/overview.css'
 
 class Overview extends Component {
+  componentDidMount(){
+    if(!this.props.isAuthenticated){
+      alert('Login In');
+      this.props.history.push("/login");
+    }
+  }
   render() {
     const { match } = this.props;
     console.log(this.props);
