@@ -8,12 +8,12 @@ Employees can send and receive points and feedback based on their performance, e
 
 
 ## Setup
-    1. Create seperate folder for React - web and Ruby on Rails - server.
-    2. Run `npx create-react-app my-app` to install the boiler plate code and dependencies in React - web folder.
-    3. Run `rails new api_app_name --api` to install the dependencies in Ruby on Rials - server folder. 
-    4. Run `bin/rake db:reset to create, load and seed db.
-    5. Run `bin/rails s -b 0.0.0.0` to start the rails server.
-    6. Run `npm start` to start the React server.
+1. Create seperate folder for React - web and Ruby on Rails - server.
+2. Run `npx create-react-app my-app` to install the boiler plate code and dependencies in React - web folder.
+3. Run `rails new api_app_name --api` to install the dependencies in Ruby on Rials - server folder. 
+4. Run `bin/rake db:reset to create, load and seed db.
+5. Run `bin/rails s -b 0.0.0.0` to start the rails server.
+6. Run `npm start` to start the React server.
 
 
 ## Functional Requirements (High Level)
