@@ -1,14 +1,22 @@
 import React from 'react'
-import NavBar from "./navbar.jsx"
+import API from '../api';
+import Form from './recognizeform.jsx';
 
-require('../styles/navbar.css')
+require('../styles/form.css')
 
 class Recognize extends React.Component {
+
+  componentDidMount() {
+    API.get('employees').then(res => {
+        const employees = res.data;
+        this.setState({ employees });
+    })
+  }
   render() {
     return (
-      <div>
-        < NavBar />
-        <h1>Recognize</h1>
+      <div className="Recognize">
+        <h1>Recognize a Co-Worker!</h1>
+        < Form />
       </div>
     )
   }
