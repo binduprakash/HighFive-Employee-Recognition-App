@@ -1,17 +1,15 @@
-import React, { Component } from "react";
-import { Redirect, Route, BrowserRouter as Router, Link, Switch } from 'react-router-dom';
-
+import React, { Component} from "react";
+import { BrowserRouter as Router, Link, withRouter } from 'react-router-dom';
 import Header from './common/header'
-import Overview from './overview'
-import Recognize from './recognize'
-import RewardsActivities from './rewardsActivities'
-import Redeem from './redeem'
-import Login from './login'
+import Routes from './Routes'
+import { withCookies, Cookies } from 'react-cookie';
+import { compose } from 'recompose'
 
 require('../styles/navbar.css')
 
 class NavBar extends Component {
   render() {
+    const {showLogin, handleLogout} = this.props;
     return (
       <div className="header_2">
         <ul className="main-nav">
@@ -27,31 +25,69 @@ class NavBar extends Component {
           <li>
             <Link to="/rewards_activities">Rewards History</Link>
           </li>
+          <li>
+            {showLogin
+              ? <Link to="/login" onClick={handleLogout}>Logout</Link>
+              : <Link to="/login">Login</Link>
+            }
+          </li>
         </ul>
       </div>
     );
   }
 }
 
-export default class App extends Component {
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: false,
+      isAuthenticating: true,
+      employeeId: null
+    };
+  }
+  componentDidMount(){
+    const { cookies } = this.props;
+    if (cookies.get('isAuthenticated') === 'true') {
+      this.userHasAuthenticated(true, cookies.get('employeeId') || null);
+    } else {
+      this.userHasAuthenticated(false, null);
+    }
+    this.setState({ isAuthenticating: false });
+  }
+  userHasAuthenticated = (authenticated, employeeId) => {
+    const { cookies } = this.props;
+    cookies.set("isAuthenticated", authenticated, {path: "/"});
+    cookies.set("employeeId", employeeId, {path: "/"});
+    this.setState({ 
+      isAuthenticated: authenticated, 
+      employeeId: employeeId
+     });
+  }
+  handleLogout = event => {
+    this.userHasAuthenticated(false, null);
+  }
   render() {
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated
+    };
     return (
+      !this.state.isAuthenticating &&
       <div className="App">
         <Header />
         <Router>
-          <NavBar />
+          <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
           <div>
-            <Switch>
-              <Route path="/login" exact component={Login} />
-              <Route path="/overview" component={Overview} />
-              <Route path="/recognize" component={Recognize} />
-              <Route path="/redeem" component={Redeem} />
-              <Route path="/rewards_activities" component={RewardsActivities} />
-              <Redirect from="/" to="/overview" />
-            </Switch>
+            <Routes childProps={childProps} />
           </div>
         </Router>
       </div>
     );
   }
 }
+
+export default compose( 
+  withCookies
+)(App);

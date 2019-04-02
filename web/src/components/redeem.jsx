@@ -22,7 +22,10 @@ class Redeem extends React.Component {
   // }
 
   componentDidMount() {
-    
+    if(!this.props.isAuthenticated){
+      alert('Login In');
+      this.props.history.push("/login");
+    } else {
     API.get('redeem_items')
     .then(res => {
       const redeemItems = res.data;
@@ -30,6 +33,7 @@ class Redeem extends React.Component {
         redeemItems: redeemItems
       })
     });
+  }
     
   }
 

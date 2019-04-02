@@ -7,10 +7,15 @@ require('../styles/form.css')
 class Recognize extends React.Component {
 
   componentDidMount() {
-    API.get('employees').then(res => {
-        const employees = res.data;
-        this.setState({ employees });
-    })
+    if(!this.props.isAuthenticated){
+      alert('Login In');
+      this.props.history.push("/login");
+    } else {
+      API.get('employees').then(res => {
+          const employees = res.data;
+          this.setState({ employees });
+      })
+    }
   }
   render() {
     return (

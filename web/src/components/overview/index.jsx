@@ -6,6 +6,12 @@ import RecentRewards from './recent-rewards'
 import Approvals from './approvals'
 
 class Overview extends Component {
+  componentDidMount(){
+    if(!this.props.isAuthenticated){
+      alert('Login In');
+      this.props.history.push("/login");
+    }
+  }
   render() {
     const { match } = this.props;
     console.log(this.props);

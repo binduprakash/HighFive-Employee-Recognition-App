@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 require('../styles/navbar.css')
 require('../styles/products.css')
@@ -10,10 +10,8 @@ class RedeemItems extends React.Component {
       <div>
         <article className="product">
           <header>
-            <a>
               <img alt="Gift Card" src= {`http://localhost:3000/${this.props.image}`}  style={{height: "200px", width: "350px;"}}/>
               <h4> {this.props.name} </h4>
-            </a>  
           </header>
             <p className="description">
               {this.props.description}
