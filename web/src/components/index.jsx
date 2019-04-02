@@ -6,6 +6,7 @@ import Overview from './overview'
 import Recognize from './recognize'
 import RewardsActivities from './rewardsActivities'
 import Redeem from './redeem'
+import Login from './login'
 
 require('../styles/navbar.css')
 
@@ -41,6 +42,7 @@ export default class App extends Component {
           <NavBar />
           <div>
             <Switch>
+              <Route path="/login" exact component={Login} />
               <Route path="/overview" component={Overview} />
               <Route path="/recognize" component={Recognize} />
               <Route path="/redeem" component={Redeem} />
