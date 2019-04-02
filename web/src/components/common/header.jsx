@@ -2,11 +2,24 @@ import React, { Component } from 'react';
 
 class Overview extends Component {
   
+  handlePoints = () => {
+    
+    if (this.props.pointsAvailable !== null) {
+      return (
+        <p>Points Available: {this.props.pointsAvailable}</p>
+      )
+    } 
+  }
+
   render() {
     return (
       <div className="header">
-        <h1>High Five</h1>
-        <p>{this.props.employeeId} {this.props.pointsAvailable}</p>
+        <h1 className="logo">
+          <a href="/overview">
+            <img alt="Gift Card" src= {`http://localhost:3000/high_five_logo.png`} style={{height: "50px"}}/> 
+          </a>
+        </h1>
+        {this.handlePoints()}
       </div>
     );
   }
