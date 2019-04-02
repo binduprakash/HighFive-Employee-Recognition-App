@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import API from '../api';
 require('../styles/login.css')
 
 export default class Login extends Component {
@@ -8,7 +9,7 @@ export default class Login extends Component {
   
         this.state = {
             email: "",
-            password: ""
+            password: "",
         };
     }
   
@@ -22,15 +23,30 @@ export default class Login extends Component {
         });
     }
   
-    handleSubmit = event => {
+    handleSubmit = async event => {
         event.preventDefault();
+        try {
+            const response = await API.post('authenticate', {
+                email: this.state.email,
+                password: this.state.password
+            });
+            if (response.data['isAuthenticated']){
+                this.props.userHasAuthenticated(
+                    response.data['isAuthenticated'],
+                    response.data['employee_id']
+                );
+                this.props.history.push("/");
+            }  
+        } catch (e) {
+            alert(e.message);
+        }
     }
   
     render() {
         return (
             <div className="Login">
                 <form onSubmit={this.handleSubmit}>
-                    <FormGroup controlId="email" bsSize="large">
+                    <FormGroup controlId="email" bssize="large">
                         <FormLabel>Email</FormLabel>
                         <FormControl
                             autoFocus
@@ -39,7 +55,7 @@ export default class Login extends Component {
                             onChange={this.handleChange}
                         />
                     </FormGroup>
-                    <FormGroup controlId="password" bsSize="large">
+                    <FormGroup controlId="password" bssize="large">
                         <FormLabel>Password</FormLabel>
                         <FormControl
                             value={this.state.password}
@@ -49,7 +65,7 @@ export default class Login extends Component {
                     </FormGroup>
                     <Button
                         block
-                        bsSize="large"
+                        bssize="large"
                         disabled={!this.validateForm()}
                         type="submit"
                     >
