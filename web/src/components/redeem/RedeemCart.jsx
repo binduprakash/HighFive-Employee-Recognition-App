@@ -1,30 +1,14 @@
 import React, { Component } from 'react';
 import RedeemItems from "./redeemItems.jsx"
-import API from '../../api';
 
 require('../../styles/products.css')
 
 class RedeemCart extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            redeemItems: []
-        }
-    }
-    componentDidMount() {
-        API.get('redeem_items')
-        .then(res => {
-            const redeemItems = res.data;
-            this.setState({
-            redeemItems: redeemItems
-            })
-        }); 
-    }
     proceedToCart = () => {
         this.props.history.push("/redeem/review");
     }
   render() {
-    const productList = this.state.redeemItems
+    const productList = this.props.redeemItems
     const productListing = productList.map(product => (
       <RedeemItems 
           key={product.id} 
