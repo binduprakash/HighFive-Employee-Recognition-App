@@ -2,9 +2,6 @@ import React from 'react';
 
 class PointsApproved extends React.Component {
 
-
-
-
     render() {
         return (
             <table class="table table-striped table-hover">

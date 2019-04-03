@@ -1,8 +1,5 @@
 import React from 'react';
 
-require('../../styles/history.css')
-
-
 class PointsSent extends React.Component {
         
     handlePointsSentRow = () => {
@@ -22,10 +19,10 @@ class PointsSent extends React.Component {
 
     render () {
         return (
-                <tbody>
-                    {this.handlePointsSentRow()}
-                </tbody>    
-            )
+            <tbody>
+                {this.handlePointsSentRow()}
+            </tbody>    
+        )
     }
     
 }
