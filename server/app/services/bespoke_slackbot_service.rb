@@ -32,7 +32,7 @@ class BespokeSlackbotService
                       },
                       {
                           title: 'Points',
-                          value: points,
+                          value: points + " :tada:",
                           short: true
                       },
                       {
