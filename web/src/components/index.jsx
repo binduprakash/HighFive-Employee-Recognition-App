@@ -90,7 +90,8 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
+      userHasAuthenticated: this.userHasAuthenticated,
+      employeeId: this.state.employeeId
     };
     return (
       !this.state.isAuthenticating &&
