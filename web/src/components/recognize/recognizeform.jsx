@@ -1,5 +1,5 @@
 import React from 'react'
-import API from '../api';
+import API from '../../api';
 
 //starter code/template used from: https://codepen.io/alexdevero/pen/oBLbMb
 
@@ -89,20 +89,27 @@ class Button extends React.Component {
   class Form extends React.Component {
     state = {
       employees: [],
-      pointsLevels: []
+      pointsLevels: [],
+      approver: null
     }
     
     componentDidMount() {
       API.get('employees').then(res => {
           const employees = res.data;
           this.setState({ employees });
-      })
+          //find object in employees array of objects, that relates to user currently logged in
+          //then setState of the manager to be used in the form POST
+          let employeeObject = this.state.employees.find(x => x.id == this.props.employeeId)
+          this.setState({ 
+            approver: employeeObject.manager_id
+          })
+        })
       API.get('points_levels').then(res => {
         const pointsLevels = res.data;
-        console.log("***",pointsLevels)
         this.setState({ pointsLevels });
-    })
+      })
     }
+
     
     render() {
       //create const.js and reference in other files for deployment (NOTE)
@@ -152,8 +159,8 @@ class Button extends React.Component {
             name='approver_message'
           />
 
-          <input name='from_employee_id' type="hidden" value='1'/>
-          <input name='approver_employee_id' type="hidden" value ='2' />
+          <input name='from_employee_id' type="hidden" value={this.props.employeeId}/>
+          <input name='approver_employee_id' type="hidden" value ={this.state.approver} />
           
           <Button
             type='submit'
