@@ -90,6 +90,7 @@ class Button extends React.Component {
     state = {
       employees: [],
       pointsLevels: [],
+      otherEmployees: [],
       approver: null
     }
     
@@ -100,9 +101,19 @@ class Button extends React.Component {
           //find object in employees array of objects, that relates to user currently logged in
           //then setState of the manager to be used in the form POST
           let employeeObject = this.state.employees.find(x => x.id == this.props.employeeId)
-          this.setState({ 
-            approver: employeeObject.manager_id
+          
+          //Creating another array of employee objects, 
+          //and filtering out current logged in user, so they don't show up in dropdown list
+          let employeeToFilter = this.props.employeeId;
+          const otherEmployeeList = this.state.employees.filter(function(employee) {
+            return employee.id != employeeToFilter
           })
+          //setting state for the variables determined above.
+          this.setState({ 
+            approver: employeeObject.manager_id,
+            otherEmployees: otherEmployeeList 
+          })
+
         })
       API.get('points_levels').then(res => {
         const pointsLevels = res.data;
@@ -121,7 +132,7 @@ class Button extends React.Component {
             hasLabel='true'
             htmlFor='select'
             label='Select Employee to Recognize'
-            options= {this.state.employees.map(employee => ({
+            options= {this.state.otherEmployees.map(employee => ({
               id: employee.id, text: " "+ employee.first_name +" "+ employee.last_name
             })
             )}
