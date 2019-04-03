@@ -4,6 +4,7 @@ import RedeemReview from './RedeemReview'
 import { Redirect, Switch } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 import { withCookies } from 'react-cookie';
+import API from '../../api';
 
 require('../../styles/navbar.css')
 
@@ -13,7 +14,8 @@ class Redeem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: []
+      cart: [],
+      redeemItems: []
     }
   }
   componentDidMount(){
@@ -25,21 +27,36 @@ class Redeem extends React.Component {
       if (cookies.get('cart')){
         this.setState({ cart: cookies.get('cart').split(',')});
       }
+      API.get('redeem_items')
+      .then(res => {
+          const redeemItems = res.data;
+          this.setState({
+          redeemItems: redeemItems
+          })
+      });
     }
   }
     
-   addToCart = redeemItemId => {
+  addToCart = redeemItemId => {
     let cart = this.state.cart;
     cart.push(redeemItemId.toString());
     this.setState({cart});
     const { cookies } = this.props;
     cookies.set('cart', cart.join(','));
-    alert("item added");
+  }
+  removeFromCart = redeemItemId => {
+    let cart = this.state.cart;
+    cart.splice(cart.indexOf(redeemItemId.toString()), 1);
+    this.setState({cart});
+    const { cookies } = this.props;
+    cookies.set('cart', cart.join(','));
   }
   render() {
     const childProps = {
       addToCart: this.addToCart,
-      cart: this.state.cart
+      removeFromCart: this.removeFromCart,
+      cart: this.state.cart,
+      redeemItems: this.state.redeemItems
     }
     return (
       <div>
