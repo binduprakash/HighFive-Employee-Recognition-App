@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class Api::V1::RewardsController < ApplicationController
     before_action :set_reward, only: [:show, :update]
 
