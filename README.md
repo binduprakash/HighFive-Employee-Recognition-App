@@ -26,7 +26,7 @@ Employees can send and receive points and feedback based on their performance, e
 
 ## Dependencies 
 
-# Web
+### Web
 
 * axios 0.18.0
 * bootstrap ^4.3.1
@@ -38,7 +38,7 @@ Employees can send and receive points and feedback based on their performance, e
 * react-scripts 2.1.8
 * recompose ^0.30.0
 
-# Server
+### Server
 
 * rails ~> 5.2.3
 * postgresql >= '0.18', '< 2.0'
