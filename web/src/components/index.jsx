@@ -82,10 +82,12 @@ class App extends Component {
     })
   }
   handleLogout = event => {
+    const { cookies } = this.props;
     this.userHasAuthenticated(false, null);
     this.setState({ 
       pointsAvailable: null
     })
+    cookies.set('cart', '');
   }
   render() {
     const childProps = {

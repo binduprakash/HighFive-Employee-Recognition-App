@@ -4,7 +4,7 @@ import AppliedRoute from './AppliedRoute';
 import Overview from './overview'
 import Recognize from './recognize/recognize'
 import RewardsActivities from './rewardsActivities'
-import Redeem from './redeem'
+import Redeem from './redeem/index'
 import Login from './login'
 
 export default ({ childProps }) =>

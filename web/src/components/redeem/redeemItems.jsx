@@ -1,11 +1,14 @@
 import React from 'react'
 
-require('../styles/navbar.css')
-require('../styles/products.css')
+require('../../styles/navbar.css')
+require('../../styles/products.css')
 
 class RedeemItems extends React.Component {
   
-  handleProduct = () => {
+  handleAddClick = () => {
+    this.props.addToCart(this.props.id)
+  }
+  render() {
     return (
       <div>
         <article className="product">
@@ -17,21 +20,12 @@ class RedeemItems extends React.Component {
               {this.props.description}
             </p>
             <footer className="actions">
-              <button onClick={this.props.addToCart}>
-              Add</button>
+              <button onClick={this.handleAddClick}>Add</button>
             </footer>
             <p className="price">
               {this.props.points} Points
             </p> 
         </article>
-      </div>
-    )
-  }
-  
-  render() {
-    return (
-      <div>
-        {this.handleProduct()}
       </div>
     )
   }
