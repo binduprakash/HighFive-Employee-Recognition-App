@@ -1,10 +1,13 @@
 import React from 'react';
 
-class PointsReceived extends React.Component {
+class PointsApproved extends React.Component {
+
+
+
 
     render() {
         return (
-            <table className="table table-striped table-hover">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>Sender</th>
@@ -21,10 +24,10 @@ class PointsReceived extends React.Component {
                         <td>2019/04/12</td>
                     </tr>
                 </tbody>
-            </table>
+                </table>
         )    
     }
 
 }
 
-export default PointsReceived
+export default PointsApproved

@@ -12,8 +12,7 @@ class BespokeSlackbotService
     DANGER = 'danger'
     
     def initialize(channel = ENV['SLACK_WEBHOOK_CHANNEL'])
-      puts '********************'
-      p ENV
+    
       @uri = URI(ENV['SLACK_WEBHOOK_URL'])
       @channel = channel
     end

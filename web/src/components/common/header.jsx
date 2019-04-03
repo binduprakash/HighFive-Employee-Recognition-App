@@ -6,7 +6,7 @@ class Overview extends Component {
     
     if (this.props.pointsAvailable !== null) {
       return (
-        <p>Points Available: {this.props.pointsAvailable}| {this.props.employeeId}</p>
+        <p>Points Available: {this.props.pointsAvailable} | EMP_ID:{this.props.employeeId}</p>
       )
     } 
   }

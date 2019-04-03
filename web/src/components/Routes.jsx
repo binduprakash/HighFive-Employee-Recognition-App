@@ -3,7 +3,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import AppliedRoute from './AppliedRoute';
 import Overview from './overview'
 import Recognize from './recognize/recognize'
-import RewardsActivities from './rewardsActivities'
+import RewardsActivities from './rewards-history/rewardsActivities'
 import Redeem from './redeem/index'
 import Login from './login'
 
