@@ -13,22 +13,44 @@ class Api::V1::OrdersController < ApplicationController
 
     # POST /orders
     def create
-        @order = Order.new(order_params)
-        if @order.save
-            render json: @order, status: :created, location: api_v1_order_url(@order)
+        # @order = Order.new(order_params)
+        # if @order.save
+        #     render json: @order, status: :created, location: api_v1_order_url(@order)
+        # else
+        #     render json: @order.errors, status: :unprocessable_entity
+        # end
+        print params
+
+        cartHash = JSON.parse params[:cart_details]
+        employee = Employee.find(params[:employee_id].to_i)
+        
+        total_points = 0
+        cartHash.each do |redeemItemIdStr, quantity|
+            redeemItem = RedeemItem.find(redeemItemIdStr.to_i)
+            total_points += (redeemItem.points * quantity)
+        end
+
+        order = Order.new(
+            ordered_by_id: employee.id,
+            email: employee.email,
+            total_points: total_points
+        )
+        if order.save
+            cartHash.each do |redeemItemIdStr, quantity|
+                redeemItem = RedeemItem.find(redeemItemIdStr.to_i)
+                OrderItem.create(
+                    order_id: order.id,
+                    redeem_item_id: redeemItem.id,
+                    quantity: quantity,
+                    sub_total_points: redeemItem.points * quantity
+                )
+            end
+            employee.available_points -= total_points
+            employee.save
+            render json: {'status': 'success'}
         else
-            render json: @order.errors, status: :unprocessable_entity
+            render json: {'status': 'failure'}
         end
     end
 
-    private
-    def order_params
-        params.require(
-            :order
-        ).permit(
-            :ordered_by_id,
-            :total_points,
-            :email
-        )
-    end
 end
