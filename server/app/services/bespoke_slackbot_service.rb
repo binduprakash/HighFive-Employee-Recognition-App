@@ -2,24 +2,17 @@ require 'net/http'
 require 'uri'
 
 class BespokeSlackbotService
-
-    GOOD = 'good'
     
-    def initialize(channel = ENV['SLACK_WEBHOOK_CHANNEL'])
-    
-      @uri = URI(ENV['SLACK_WEBHOOK_URL'])
-      @channel = channel
-    end
-  
-    def clicky_clicky(user, points, reasonMsg, from)
+    def clicky_clicky(user, points, reasonMsg, from, channelID)
       params = {
           
-          channel:"UHCNPP9FY",
+          channel: channelID,
           attachments: [
               {
                   title: ':100: Employee Recognition Alert! :100:',
                   fallback: 'New Recognition!',
                   color: 'good',
+                  image_url: "https://media.giphy.com/media/fxsqOYnIMEefC/giphy.gif",
                   fields: [
                       {
                           title: 'Employee Recognized',
@@ -46,7 +39,7 @@ class BespokeSlackbotService
           ]
       }
       @params = params.to_json
-      #params.to_JSON and remove generate payload
+
       self
     end
   
@@ -57,6 +50,9 @@ class BespokeSlackbotService
         path = '/api/chat.postMessage'
 
         data = @params
+        
+        # define token and content type as per CURL example https://api.slack.com/web
+
         headers = {
           'Authorization' => 'Bearer '+ ENV['SLACK_API_TOKEN'],
           'Content-type' => 'application/json'
@@ -64,6 +60,7 @@ class BespokeSlackbotService
 
         resp, data = http.post(path, data, headers)
 
+        # to delete
         puts resp.body
         puts data
 
