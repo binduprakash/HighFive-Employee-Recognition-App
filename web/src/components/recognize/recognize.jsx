@@ -1,8 +1,8 @@
 import React from 'react'
-import API from '../api';
+import API from '../../api';
 import Form from './recognizeform.jsx';
 
-require('../styles/form.css')
+require('../../styles/form.css')
 
 class Recognize extends React.Component {
 
@@ -17,11 +17,15 @@ class Recognize extends React.Component {
       })
     }
   }
+  
+
   render() {
+    const employeeId = this.props.employeeId
+
     return (
       <div className="Recognize">
         <h1>Recognize a Co-Worker!</h1>
-        < Form />
+        < Form employeeId={employeeId} />
       </div>
     )
   }

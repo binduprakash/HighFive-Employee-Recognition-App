@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+
 class Api::V1::RewardsController < ApplicationController
     before_action :set_reward, only: [:show, :update]
 
@@ -25,8 +28,21 @@ class Api::V1::RewardsController < ApplicationController
     def create
         @reward = Reward.new(reward_params)
         
+        
+        to_employee = reward_params[:to_employee_id]
+        rewards_msg = reward_params[:reward_message]
+        points_msg = reward_params[:level_id]
+        from_employee = reward_params[:from_employee_id]
+
+
+
+# add the :tada: 
+
         if @reward.save
+            BespokeSlackbotService.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee).deliver
+            
             render json: @reward, status: :created, location: api_v1_reward_url(@reward)
+
         else
             render json: @reward.errors, status: :unprocessable_entity
         end

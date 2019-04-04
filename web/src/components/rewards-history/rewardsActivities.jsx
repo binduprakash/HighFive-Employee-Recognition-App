@@ -1,4 +1,5 @@
 import React from 'react'
+
 class RewardsActivities extends React.Component {
   componentDidMount(){
     if(!this.props.isAuthenticated){
@@ -14,4 +15,4 @@ class RewardsActivities extends React.Component {
     )
   }
 }
-export default RewardsActivities
+export default RewardsActivities;

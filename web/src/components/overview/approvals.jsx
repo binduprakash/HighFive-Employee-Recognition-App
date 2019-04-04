@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 
-import Reward from './approval-request';
+import ActionableReward from './approval-request';
 
 class Approvals extends Component {
   render() {
+    const { rewards, approve_request, reject_request } = this.props;
+    console.log(this.props);
     return (
       <div className="Approvals">
-     
-        <Reward giver={'Bindu'} recipient={'Maddie'} points={20} />
-        <Reward giver={'Maddie'} recipient={'Tyler'} points={20} />
-        <Reward giver={'Tyler'} recipient={'Maddie'} points={20} />
-    
-        {/* <h3>Approvals Code Goes Here</h3> */}
+        <h3>Approvals Required</h3>
+        {rewards.map((reward, index) => <ActionableReward key={index} id={reward.id} from={reward.from} to={reward.to} level={reward.level} on_approve={approve_request} on_reject={reject_request} />)}
       </div>
     );
   }

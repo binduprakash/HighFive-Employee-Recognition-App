@@ -1,11 +1,14 @@
 import React from 'react'
 
-require('../styles/navbar.css')
-require('../styles/products.css')
+require('../../styles/navbar.css')
+require('../../styles/products.css')
 
 class RedeemItems extends React.Component {
   
-  handleProduct = () => {
+  handleAddClick = () => {
+    this.props.addToCart(this.props.id)
+  }
+  render() {
     return (
       <div>
         <article className="product">
@@ -17,23 +20,12 @@ class RedeemItems extends React.Component {
               {this.props.description}
             </p>
             <footer className="actions">
-              <form className="button_to" method="post" action="/"><button class="btn btn-primary" type="submit">
-                <i className="fa fa-shopping-cart"></i> Add
-                </button><input type="hidden" name="authenticity_token" value="9orHr20LFFUjRmjj6NkGi+jLbvIqLgKa8qSo8XBcuLgwkakZgToi2dLc9OwwLayKsZK0lDTR9W6pfAOD9aHSgA==" />
-              </form>    
+              <button onClick={this.handleAddClick}>Add</button>
             </footer>
             <p className="price">
               {this.props.points} Points
-            </p>
+            </p> 
         </article>
-      </div>
-    )
-  }
-  
-  render() {
-    return (
-      <div>
-        {this.handleProduct()}
       </div>
     )
   }

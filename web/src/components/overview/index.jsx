@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import AppliedRoute from '../AppliedRoute';
 
 import Profile from './profile'
 import RecentRewards from './recent-rewards'
@@ -15,9 +16,7 @@ class Overview extends Component {
     }
   }
   render() {
-    const { match } = this.props;
-    console.log(this.props);
-    console.log(match.url)
+    const { rewards: { pending, settled }, approve_request, reject_request } = this.props;
     return (
       <div className="Overview">
         <h1>Overview</h1>
@@ -32,8 +31,8 @@ class Overview extends Component {
                 </li>
             </ul>
             <div className="Sidebar-Content">
-                <Route path='/overview/recent-rewards' component={RecentRewards}/>
-                <Route path='/overview/approval' component={Approvals}/>
+                <AppliedRoute path='/overview/recent-rewards' component={RecentRewards} props={{rewards: settled}}/>
+                <AppliedRoute path='/overview/approval' component={Approvals} props={{rewards: pending, approve_request, reject_request}}/>
             </div>
         </div>
       </div>
