@@ -2,14 +2,8 @@ require 'net/http'
 require 'uri'
 
 class BespokeSlackbotService
-    NAME_AND_ICON = {
-        username: 'SpotlightBOT',
-        icon_emoji: ':taco:'
-    }
-  
+
     GOOD = 'good'
-    WARNING = 'warning'
-    DANGER = 'danger'
     
     def initialize(channel = ENV['SLACK_WEBHOOK_CHANNEL'])
     
@@ -19,11 +13,13 @@ class BespokeSlackbotService
   
     def clicky_clicky(user, points, reasonMsg, from)
       params = {
+          
+          channel:"UHCNPP9FY",
           attachments: [
               {
                   title: ':100: Employee Recognition Alert! :100:',
                   fallback: 'New Recognition!',
-                  color: GOOD,
+                  color: 'good',
                   fields: [
                       {
                           title: 'Employee Recognized',
@@ -49,25 +45,30 @@ class BespokeSlackbotService
               }
           ]
       }
-      @params = generate_payload(params)
+      @params = params.to_json
+      #params.to_JSON and remove generate payload
       self
     end
   
     def deliver
       begin
-        Net::HTTP.post_form(@uri, @params)
+        http = Net::HTTP.new('slack.com', 443)
+        http.use_ssl = true
+        path = '/api/chat.postMessage'
+
+        data = @params
+        headers = {
+          'Authorization' => 'Bearer '+ ENV['SLACK_API_TOKEN'],
+          'Content-type' => 'application/json'
+        }
+
+        resp, data = http.post(path, data, headers)
+
+        puts resp.body
+        puts data
+
       rescue => e
         Rails.logger.error("BespokeSlackbotService: Error when sending: #{e.message}")
       end
-    end
-  
-    private
-  
-    def generate_payload(params)
-      {
-          payload: NAME_AND_ICON
-                       .merge(channel: @channel)
-                       .merge(params).to_json
-      }
     end
   end
