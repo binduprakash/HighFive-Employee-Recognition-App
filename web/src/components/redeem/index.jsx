@@ -40,10 +40,19 @@ class Redeem extends React.Component {
     
   addToCart = redeemItemId => {
     let cart = this.state.cart;
-    cart.push(redeemItemId.toString());
-    this.setState({cart});
-    const { cookies } = this.props;
-    cookies.set('cart', cart.join(','));
+    const redeemItem = this.state.redeemItems.find((value) => {
+      if(value.id == redeemItemId){
+        return value;
+      }
+    });
+    if((this.getCartTotalPoints() + redeemItem.points) > this.props.pointsAvailable){
+      alert ("You don't have sufficient points to redeem this card");
+    } else {
+      cart.push(redeemItemId.toString());
+      this.setState({cart});
+      const { cookies } = this.props;
+      cookies.set('cart', cart.join(','));
+    }
   }
   removeFromCart = redeemItemId => {
     let cart = this.state.cart;
@@ -57,6 +66,32 @@ class Redeem extends React.Component {
     const { cookies } = this.props;
     cookies.set('cart', '');
   }
+
+  getItemAndQuantityFromCart = () => {
+    const cart = this.state.cart;
+    let cartQuantity = {}
+    for(let i = 0;i < cart.length;i++){
+      if(cartQuantity[cart[i]]){
+        cartQuantity[cart[i]]+=1;
+      } else {
+        cartQuantity[cart[i]] = 1;
+      }
+    }
+    return cartQuantity;
+  } 
+
+  getCartTotalPoints = () => {
+    const cartQuantity = this.getItemAndQuantityFromCart();
+    let totalPoints = 0;
+    this.state.redeemItems.forEach(function(redeemItem){
+      if(cartQuantity[redeemItem.id.toString()]){
+        let quantity = cartQuantity[redeemItem.id.toString()];
+        totalPoints+=(quantity * redeemItem.points);
+      }
+    });
+    return totalPoints;
+  }
+
   render() {
     const childProps = {
       addToCart: this.addToCart,
@@ -64,7 +99,9 @@ class Redeem extends React.Component {
       clearCart: this.clearCart,
       cart: this.state.cart,
       redeemItems: this.state.redeemItems,
-      employeeId: this.props.employeeId
+      employeeId: this.props.employeeId,
+      getItemAndQuantityFromCart: this.getItemAndQuantityFromCart,
+      getCartTotalPoints: this.getCartTotalPoints
     }
     return (
       <div>

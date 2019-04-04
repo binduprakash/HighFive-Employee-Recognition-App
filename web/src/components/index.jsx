@@ -183,6 +183,7 @@ class App extends Component {
       employeeId: this.state.employeeId,
       approve_request: this.approve_request,
       reject_request: this.reject_request,
+      pointsAvailable: this.state.pointsAvailable
     };
     return (
       !this.state.isAuthenticating &&

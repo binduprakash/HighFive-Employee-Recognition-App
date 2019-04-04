@@ -5,19 +5,6 @@ require('../../styles/redeem.css')
 
 class RedeemReview extends Component {
 
-  getItemAndQuantityFromCart = () => {
-    const cart = this.props.cart;
-    let cartQuantity = {}
-    for(let i=0;i<cart.length;i++){
-      if(cartQuantity[cart[i]]){
-        cartQuantity[cart[i]]+=1;
-      } else {
-        cartQuantity[cart[i]] = 1;
-      }
-    }
-    return cartQuantity;
-  } 
-
   getCartRows = () => {
     const handleReduceQuantityButton = event => {
       this.props.removeFromCart(event.target.id);
@@ -25,12 +12,11 @@ class RedeemReview extends Component {
     const handleIncreaseQuantityButton = event => {
       this.props.addToCart(event.target.id);
     } 
-    const cartQuantity = this.getItemAndQuantityFromCart();
-    let totalPoints = 0;
+    const cartQuantity = this.props.getItemAndQuantityFromCart();
     let tableRows = this.props.redeemItems.map(function(redeemItem){
       if(cartQuantity[redeemItem.id.toString()]){
         let quantity = cartQuantity[redeemItem.id.toString()];
-        totalPoints+=(quantity * redeemItem.points);
+        
         return (
           <tr>
             <td><img alt="Gift Card" src= {`http://localhost:3000/${redeemItem.image_url}`}  style={{height: "40px", width: "60px;"}}/></td>
@@ -47,7 +33,7 @@ class RedeemReview extends Component {
     tableRows.push((
       <tr>
         <td colspan="2">Total Points</td>
-        <td>{totalPoints}</td>
+        <td>{this.props.getCartTotalPoints()}</td>
       </tr>
     ))
     return tableRows;
@@ -55,7 +41,7 @@ class RedeemReview extends Component {
   payByPointsAndSubmit = async () => {
     const response =  await API.post('orders', {
       employee_id: this.props.employeeId,
-      cart_details: JSON.stringify(this.getItemAndQuantityFromCart())
+      cart_details: JSON.stringify(this.props.getItemAndQuantityFromCart())
     });
     if (response.data['status'] === 'success'){
       alert('Order has been placed successfully!')
