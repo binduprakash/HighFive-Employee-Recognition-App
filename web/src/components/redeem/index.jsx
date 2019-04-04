@@ -1,6 +1,7 @@
 import React from 'react'
 import RedeemCart from './RedeemCart';
 import RedeemReview from './RedeemReview'
+import RedeemConfirm from './RedeemConfirm'
 import { Redirect, Switch } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 import { withCookies } from 'react-cookie';
@@ -51,18 +52,26 @@ class Redeem extends React.Component {
     const { cookies } = this.props;
     cookies.set('cart', cart.join(','));
   }
+  clearCart = () => {
+    this.setState({cart: []});
+    const { cookies } = this.props;
+    cookies.set('cart', '');
+  }
   render() {
     const childProps = {
       addToCart: this.addToCart,
       removeFromCart: this.removeFromCart,
+      clearCart: this.clearCart,
       cart: this.state.cart,
-      redeemItems: this.state.redeemItems
+      redeemItems: this.state.redeemItems,
+      employeeId: this.props.employeeId
     }
     return (
       <div>
         <Switch>
           <AppliedRoute path='/redeem/cart' component={RedeemCart} props={childProps}/>
           <AppliedRoute path='/redeem/review' component={RedeemReview} props={childProps}/>
+          <AppliedRoute path='/redeem/confirm' component={RedeemConfirm} props={childProps}/>
           <Redirect from="/redeem" to="/redeem/cart"/>
         </Switch>
       </div>
