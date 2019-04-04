@@ -7,18 +7,16 @@
     display: flex;
     border-radius: 10px 10px 10px 10px;
     margin-top: -250px;
-
+    display: flex;
+    align-items: normal;
+    flex-direction: column;
+    padding: 20px;
 }
 
 .Sidebar ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 10px 10px 10px 10px; 
-    padding: 10px; 
-    vertical-align: top;
-    margin-bottom: 500px;
-    position: relative;
     font-size: 18px;
 }
 
