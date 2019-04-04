@@ -47,8 +47,12 @@ class App extends Component {
       isAuthenticating: true,
       employeeId: null,
       pointsAvailable: null,
-      employees: []
+      employees: [],
+      rewards: [],
+      levels: []
     };
+    this.approve_request = this.approve_request.bind(this);
+    this.reject_request = this.reject_request.bind(this);
   }
   componentDidMount(){
     const { cookies } = this.props;
@@ -59,6 +63,37 @@ class App extends Component {
     }
     this.setState({ isAuthenticating: false });
   }
+  getEmployeesAndRewards = (authenticated, employeeId) => {
+    API.get('employees').then(res => {
+      const employees = res.data;
+      let newState = {
+        employees
+      };
+
+      let employeeObject = employees.find(x => x.id == employeeId)
+      if (authenticated === true) {
+        newState.pointsAvailable = employeeObject.available_points;
+      }
+      this.setState(newState, () => {
+        const { employees: freshEmployees, levels } = this.state;
+        API.get('rewards').then(res => {
+          const rewards = res.data;
+          const mappedRewards = rewards.map((reward) => {
+            const from = freshEmployees.find(e => e.id == reward.from_employee_id);
+            const to = freshEmployees.find(e => e.id == reward.to_employee_id);
+            const level = levels.find(l => l.id == reward.level_id);
+            return {
+              ...reward,
+              to,
+              from,
+              level
+            }
+          });
+          this.setState({ rewards: mappedRewards });
+        })
+      })
+    })
+  }
   userHasAuthenticated = (authenticated, employeeId) => {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
@@ -67,20 +102,67 @@ class App extends Component {
     this.setState({ 
       isAuthenticated: authenticated,
       employeeId: employeeId 
-     });
-     API.get('employees').then(res => {
-      const employees = res.data;
-      this.setState({ employees: employees });
-
-      let employeeObject = this.state.employees.find(x => x.id == employeeId)
-
-      if (authenticated === true) {
-        this.setState({ 
-          pointsAvailable: employeeObject.available_points
-        })
-      }
-    })
+    });
+    const self = this;
+    API.get('points_levels').then(res => {
+      const levels = res.data;
+      this.setState({
+        levels
+      }, () => {
+        self.getEmployeesAndRewards(authenticated, employeeId);
+      })
+    });
   }
+
+  update_request(request) {
+    const { 
+      id,
+      reward_message,
+      approver_message,
+      to_employee_id, 
+      level_id,
+      from_employee_id,
+      approver_employee_id,
+      status,
+      approved_at
+     } = request;
+    const self = this;
+    API.patch(`rewards/${id}`, {
+      data: {
+        reward_message,
+        approver_message,
+        to_employee_id, 
+        level_id,
+        from_employee_id,
+        approver_employee_id,
+        status,
+        approved_at
+      }
+    }).then(res => {
+      const updatedReward = res.data;
+      const existingRewards = self.rewards;
+      const updationIndex = existingRewards.findIndex(rew => rew.id == id);
+      existingRewards[updationIndex] = updatedReward;
+      this.setState({
+        rewards: existingRewards
+      });
+    });
+  }
+
+  approve_request(id) {
+    console.log(`approved ${id}`)
+    const approved_request = this.state.rewards.find(r => r.id == id);
+    approved_request.status = 'approved';
+    this.update_request(approved_request);
+  }
+
+  reject_request(id) {
+    console.log(`rejected ${id}`)
+    const rejected_request = this.state.rewards.find(r => r.id == id);
+    rejected_request.status = 'rejected';
+    this.update_request(rejected_request);
+  }
+  
   handleLogout = event => {
     const { cookies } = this.props;
     this.userHasAuthenticated(false, null);
@@ -91,9 +173,16 @@ class App extends Component {
   }
   render() {
     const childProps = {
+      rewards: {
+        all: this.state.rewards,
+        settled: this.state.rewards.filter(rew => rew.status !== 'pending'),
+        pending: this.state.rewards.filter(rew => rew.status == 'pending'),
+      },
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
-      employeeId: this.state.employeeId
+      employeeId: this.state.employeeId,
+      approve_request: this.approve_request,
+      reject_request: this.reject_request,
     };
     return (
       !this.state.isAuthenticating &&
