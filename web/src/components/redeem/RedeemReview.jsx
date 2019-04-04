@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import API from '../../api';
+
 require('../../styles/redeem.css')
+
 class RedeemReview extends Component {
 
   getItemAndQuantityFromCart = () => {
@@ -49,7 +52,20 @@ class RedeemReview extends Component {
     ))
     return tableRows;
   }
-  
+  payByPointsAndSubmit = async () => {
+    const response =  await API.post('orders', {
+      employee_id: this.props.employeeId,
+      cart_details: JSON.stringify(this.getItemAndQuantityFromCart())
+    });
+    if (response.data['status'] === 'success'){
+      alert('Order has been placed successfully!')
+      this.props.clearCart();
+      this.props.history.push("/redeem/confirm");
+    } else {
+      alert('Some issue while saving order, please try again later');
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -65,7 +81,7 @@ class RedeemReview extends Component {
               {this.getCartRows()}
             </table>
           </div>
-          <button onClick={this.proceedToCart}>Pay by Points and Submit</button>
+          <button onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</button>
           </div>
         </section>
       </main>
