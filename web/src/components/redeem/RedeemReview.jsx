@@ -67,7 +67,7 @@ class RedeemReview extends Component {
               {this.getCartRows()}
             </table>
           </div>
-          <button onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</button>
+          <button disabled={!this.props.getCartTotalPoints()} onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</button> 
           </div>
         </section>
       </main>
