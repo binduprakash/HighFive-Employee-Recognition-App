@@ -22,6 +22,8 @@ end
 
 ################ EMPLOYEES CREATION ####################
 Reward.destroy_all
+OrderItem.destroy_all
+Order.destroy_all
 Employee.destroy_all
 
 ceo = Employee.create({
