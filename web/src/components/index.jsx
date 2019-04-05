@@ -8,6 +8,7 @@ import API from '../api';
 
 require('../styles/navbar.css')
 
+
 class NavBar extends Component {
   render() {
     const {showLogin, handleLogout} = this.props;

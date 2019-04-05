@@ -1,11 +1,11 @@
 import React from "react";
 import { Redirect, Switch } from 'react-router-dom';
 import AppliedRoute from './AppliedRoute';
-import Overview from './overview'
-import Recognize from './recognize/recognize'
-import RewardsActivities from './rewards-history/rewardsActivities'
-import Redeem from './redeem/index'
-import Login from './login'
+import Overview from './overview';
+import Recognize from './recognize/index';
+import RewardsActivities from './rewards-history/rewardsActivities';
+import Redeem from './redeem/index';
+import Login from './login';
 
 export default ({ childProps }) =>
   <Switch>
