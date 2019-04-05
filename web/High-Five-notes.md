@@ -11,6 +11,17 @@ SlackID: UHNTVJL4C
 cgates.LHL@gmail.com    
 SlackID: UH9BLD350
 
+pcool.LHL@gmail.com
+SlackID: UH9BQK5UK
+
+pbill.LHL@gmail.com
+SlackID: UHP8UM2Q4
+
+mbud.LHL@gmail.com
+Slack:ID: 
+
+
+
 
 
 
