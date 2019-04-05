@@ -17,6 +17,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.High-Five-notes
 
 npm-debug.log*
 yarn-debug.log*

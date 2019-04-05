@@ -28,20 +28,21 @@ class Api::V1::RewardsController < ApplicationController
     def create
         @reward = Reward.new(reward_params)
         
-        
+        #defining parameters for Slack message
         to_employee = reward_params[:to_employee_id]
         rewards_msg = reward_params[:reward_message]
         points_msg = reward_params[:level_id]
         from_employee = reward_params[:from_employee_id]
+        # hardcoded to David Kelly right now
         channel_ID = 'UHNTVJL4C'
+        #hard coded to Clara
+        channel_ID_Approver = 'UH9BLD350'
 
-
-
-# add the :tada: 
+        # need to move Receiving User Slack to after approval route
 
         if @reward.save
-            BespokeSlackbotService.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee, channel_ID).deliver
-            
+            ReceivingUserSlack.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee, channel_ID).deliver
+            ApproverUserSlack.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee, channel_ID_Approver).deliver
             render json: @reward, status: :created, location: api_v1_reward_url(@reward)
 
         else

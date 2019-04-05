@@ -1,7 +1,7 @@
 require 'net/http'
 require 'uri'
 
-class BespokeSlackbotService
+class ReceivingUserSlack
     
     def clicky_clicky(user, points, reasonMsg, from, channelID)
       params = {
@@ -65,7 +65,7 @@ class BespokeSlackbotService
         puts data
 
       rescue => e
-        Rails.logger.error("BespokeSlackbotService: Error when sending: #{e.message}")
+        Rails.logger.error("ReceivingUserSlack: Error when sending: #{e.message}")
       end
     end
   end
