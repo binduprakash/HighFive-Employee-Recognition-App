@@ -52,6 +52,10 @@ class RedeemReview extends Component {
     }
   }
 
+  goBackToRedeemCart = () => {
+    this.props.history.push("/redeem/cart");
+  }
+
   render() {
     return (
       <div className="container">
@@ -63,11 +67,18 @@ class RedeemReview extends Component {
             <h1>Products</h1>
           </header>
           <div className="products">
+          {this.props.getCartTotalPoints() ?
+          
             <table>
               {this.getCartRows()}
-            </table>
+            </table> : 
+            <div>
+              <h4>Your cart is empty</h4>
+              <br></br>
+              <button className="continue-redeem" onClick={this.goBackToRedeemCart}>Continue Redeeming</button> 
+            </div> }
           </div>
-          <button disabled={!this.props.getCartTotalPoints()} onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</button> 
+          <button className="pay-points" disabled={!this.props.getCartTotalPoints()} onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</button> 
           </div>
         </section>
       </main>
