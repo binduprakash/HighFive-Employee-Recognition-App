@@ -3,33 +3,38 @@ require 'uri'
 
 class ApproverUserSlack
     
-    def clicky_clicky(user, points, reasonMsg, from, channelID)
+    def clicky_clicky(user, points, reasonMsg, from, channelID, mgrMsg)
       params = {
           
           channel: channelID,
           attachments: [
               {
-                  title: ':100: Approval Required: Employee Recognition! :100:',
+                  title: 'Approval Required: Employee Recognition! :heavy_check_mark: | :heavy_multiplication_x:',
                   fallback: 'New Recognition!',
                   fields: [
                       {
-                          title: 'Employee Recognized',
+                          title: 'Employee Recognized:',
                           value: user,
                           short: true
                       },
                       {
-                          title: 'Points',
+                          title: 'Points:',
                           value: points + " :tada:",
                           short: true
                       },
                       {
-                          title: 'Reason:',
+                          title: 'Message to Employee:',
                           value: reasonMsg,
                           short: true
                       },
                       {
-                          title: 'From:',
+                          title: 'Submitted by:',
                           value: from,
+                          short: true
+                      },
+                      {
+                          title: 'Message to Manager:',
+                          value: mgrMsg,
                           short: true
                       }
                   ]
