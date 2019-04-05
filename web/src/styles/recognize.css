@@ -1,0 +1,22 @@
+.recognize-form {
+    margin-top:30px;
+}
+.step-buttons { 
+    float: right;
+}
+
+.step-container {
+    margin-top:40px;
+}
+.select-recipient-step,
+.select-level-step,
+.message-step,
+.review-confirm-step
+ {
+    padding: 10px;
+    background-color: lightgray;
+}
+
+.step-previous-button { 
+    margin-right: 15px;
+}
