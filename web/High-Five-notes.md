@@ -18,8 +18,13 @@ pbill.LHL@gmail.com
 SlackID: UHP8UM2Q4
 
 mbud.LHL@gmail.com
-Slack:ID: 
+Slack:ID: UHP8W2QAY
 
+pdon.lhl@gmail.com
+Slack:ID: UHR6DG86B
+
+esmith@lhl@gmail.com
+Slack:ID: UHFB2T909
 
 
 
