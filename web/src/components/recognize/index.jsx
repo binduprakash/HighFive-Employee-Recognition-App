@@ -1,18 +1,15 @@
 import React from 'react'
 import API from '../../api';
-import {Container, Col, Row, Form} from 'react-bootstrap'
+import { Container, Col, Row, Form } from 'react-bootstrap'
 import { Redirect, Switch } from 'react-router-dom';
-import AppliedRoute from '../AppliedRoute';
 
+import AppliedRoute from '../AppliedRoute';
 import RecognizeSelectRecipient from './RecognizeSelectRecipient';
 import RecognizeSelectLevel from './RecognizeSelectLevel';
 import RecognizeMessage from './RecognizeMessage';
 import RecognizeReviewAndConfirm from './RecognizeReviewAndConfirm';
 
 require('../../styles/recognize.css')
-// import Form from './recognizeform.jsx';
-
-// require('../../styles/form.css')
 
 class Recognize extends React.Component {
 
@@ -21,6 +18,7 @@ class Recognize extends React.Component {
     pointsLevels: [],
     otherEmployees: [],
     approver: null,
+    fromEmployeeId: null,
     selectedRecipientId: null,
     selectPointsLevelId: null,
     messageToRecipient: null,
@@ -75,10 +73,26 @@ class Recognize extends React.Component {
   setMessageToManager = (message) => {
     this.setState({messageToManager: message});
   }
+  submitRewards = async () => {
+    const response = await API.post('rewards', {
+      from_employee_id: this.props.employeeId,
+      to_employee_id: this.state.selectedRecipientId,
+      level_id: this.state.selectPointsLevelId,
+      reward_message: this.state.messageToRecipient,
+      approver_message: this.state.messageToManager,
+      approver_employee_id: this.state.approver && this.state.approver.id,
+    });
+    if(response.data['status'] === 'success'){
+      alert('Rewards created successfully!');
+    } else {
+      alert('Some issue in creating rewards');
+    }
+  }
   render() {
-    const employeeId = this.props.employeeId
     const childProps = {
       recipients: this.state.otherEmployees,
+      approver: this.state.approver,
+      employees: this.state.employees,
       pointsLevels: this.state.pointsLevels,
       selectedRecipientId: this.state.selectedRecipientId,
       setRecipientId: this.setRecipientId,
@@ -87,7 +101,8 @@ class Recognize extends React.Component {
       messageToManager: this.state.messageToManager,
       setMessageToManager: this.setMessageToManager,
       messageToRecipient: this.state.messageToRecipient,
-      setMessageToRecipient: this.setMessageToRecipient
+      setMessageToRecipient: this.setMessageToRecipient,
+      submitRewards: this.submitRewards,
     };
     return (
       <Container className="recognize-form">
@@ -96,10 +111,10 @@ class Recognize extends React.Component {
           <Col xs={6}>
           <Container>
             <Row>
-              <Col className="select-recipient-step">1) Select Recipient</Col>
-              <Col className="select-level-step">2) Select Level</Col>
-              <Col className="message-step">3) Provide Message</Col>
-              <Col className="review-confirm-step">4) Review &amp; Confirm</Col>
+              <Col className="select-recipient-step">Select<br/>Recipient</Col>
+              <Col className="select-level-step">Select<br/>Level</Col>
+              <Col className="message-step">Provide<br/>Message</Col>
+              <Col className="review-confirm-step">Review &amp;<br/>Confirm</Col>
             </Row>
           </Container>
             <Form>
