@@ -40,11 +40,9 @@ class Api::V1::RewardsController < ApplicationController
 
         if @reward.save
             BespokeSlackbotService.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee).deliver
-            
-            render json: @reward, status: :created, location: api_v1_reward_url(@reward)
-
+            render json: {'status': 'success'}
         else
-            render json: @reward.errors, status: :unprocessable_entity
+            render json: {'status': 'error'}
         end
     end
 
