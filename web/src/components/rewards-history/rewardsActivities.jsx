@@ -9,24 +9,18 @@ require('../../styles/history.css')
 
 /*
 Notes to Maddie:
-- we will need to filter the tables by employee logged in
 - we will have to change state or something with the buttons (make prettier later) to filter which table shows
 - we need to determine best way to get the actual employee name rather than the ID in the reward table. I don't know solution yet.
 - I did not start the approvals table
 */
-
-
-
-
-
-
 
 class RewardsActivities extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            rewards: []
+            rewards: [],
+            employees: [],
         }
     }
     
@@ -46,7 +40,27 @@ class RewardsActivities extends React.Component {
         const employeeId = this.props.employeeId
         const rewardsList = this.state.rewards
 
-        const rewardsSent = rewardsList.map(reward => (
+        let employeeToFilter = this.props.employeeId;
+          
+          // filter rewards sent     list based on who is logged in/state
+          const rewardsSentList  = this.state.rewards.filter(function(employee) {
+            return employee.from_employee_id == employeeToFilter
+          })
+          // filter rewards received list based on who is logged in/state
+          const rewardsReceivedList  = this.state.rewards.filter(function(employee) {
+            return employee.to_employee_id == employeeToFilter
+          })
+          
+        function isManager(employee) {
+            this.state.rewards.filter(function(employee) {
+                return employee.to_employee_id == employeeToFilter
+
+            })
+        }
+
+        console.log('^^^^^^^', this.props)
+
+        const rewardsSent = rewardsSentList.map(reward => (
             <PointsSent 
                 key= {reward.id} 
                 id= {reward.id} 
@@ -58,7 +72,7 @@ class RewardsActivities extends React.Component {
             />
         ))
 
-        const rewardsRecevied = rewardsList.map(reward => (
+        const rewardsRecevied = rewardsReceivedList.map(reward => (
             <PointsReceived 
                 key= {reward.id} 
                 id= {reward.id} 
