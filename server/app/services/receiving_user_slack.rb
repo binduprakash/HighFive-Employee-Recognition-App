@@ -15,22 +15,22 @@ class ReceivingUserSlack
                   image_url: "https://media.giphy.com/media/fxsqOYnIMEefC/giphy.gif",
                   fields: [
                       {
-                          title: 'Employee Recognized',
+                          title: 'Employee Recognized:',
                           value: user,
                           short: true
                       },
                       {
-                          title: 'Points',
+                          title: 'Points:',
                           value: points + " :tada:",
                           short: true
                       },
                       {
-                          title: 'Reason:',
+                          title: 'Message to Employee:',
                           value: reasonMsg,
                           short: true
                       },
                       {
-                          title: 'From:',
+                          title: 'Submitted By:',
                           value: from,
                           short: true
                       }

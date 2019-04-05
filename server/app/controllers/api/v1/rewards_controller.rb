@@ -30,9 +30,17 @@ class Api::V1::RewardsController < ApplicationController
         
         #defining parameters for Slack message
         to_employee = reward_params[:to_employee_id]
-        rewards_msg = reward_params[:reward_message]
-        points_msg = reward_params[:level_id]
+        full_name_to_employee = full_name(to_employee)
+        
         from_employee = reward_params[:from_employee_id]
+        full_name_from_employee = full_name(from_employee)
+        
+        points_msg = reward_params[:level_id]
+        points_text = points_name(points_msg)
+
+        rewards_msg = reward_params[:reward_message]
+        
+        
         # hardcoded to David Kelly right now
         channel_ID = 'UHNTVJL4C'
         #hard coded to Clara
@@ -41,8 +49,14 @@ class Api::V1::RewardsController < ApplicationController
         # need to move Receiving User Slack to after approval route
 
         if @reward.save
-            ReceivingUserSlack.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee, channel_ID).deliver
-            ApproverUserSlack.new.clicky_clicky(to_employee,points_msg,rewards_msg,from_employee, channel_ID_Approver).deliver
+            ReceivingUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID).deliver
+            ApproverUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID_Approver, reward_params[:approver_message]).deliver
+            
+            
+            
+            client = Employee.select("first_name", "last_name").find_by(:id => reward_params[:to_employee_id])
+            toEmployee = client.first_name + " " + client.last_name
+            
             render json: @reward, status: :created, location: api_v1_reward_url(@reward)
 
         else
@@ -70,4 +84,13 @@ class Api::V1::RewardsController < ApplicationController
         )
     end
 
+    def full_name (employeeId)
+        emp = Employee.select("first_name", "last_name").find_by(:id => employeeId)
+        toEmployee = emp.first_name + " " + emp.last_name
+    end
+
+    def points_name (pointsId)
+        level = PointsLevel.select("level_name", "points").find_by(:id => pointsId)
+        toLevel = level.level_name + ": " + level.points.to_s + " points"
+    end
 end
