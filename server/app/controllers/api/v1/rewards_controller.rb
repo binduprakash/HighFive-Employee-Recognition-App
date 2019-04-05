@@ -52,15 +52,12 @@ class Api::V1::RewardsController < ApplicationController
             ReceivingUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID).deliver
             ApproverUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID_Approver, reward_params[:approver_message]).deliver
             
-            
-            
             client = Employee.select("first_name", "last_name").find_by(:id => reward_params[:to_employee_id])
             toEmployee = client.first_name + " " + client.last_name
             
-            render json: @reward, status: :created, location: api_v1_reward_url(@reward)
-
+            render json: {'status': 'success'}            
         else
-            render json: @reward.errors, status: :unprocessable_entity
+            render json: {'status': 'error'}
         end
     end
 
