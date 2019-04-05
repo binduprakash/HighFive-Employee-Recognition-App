@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Button, Container, Row}  from 'react-bootstrap';
+import { Form, Button, Container, Row }  from 'react-bootstrap';
 
 class RecognizeMessage extends React.Component {
     state = {
