@@ -7,10 +7,10 @@ class PointsReceived extends React.Component {
         return (
             
             <tr data-status="active">
-                <td>{this.props.receiver}</td>
-                <td>{this.props.points}</td>
+                <td>{this.props.from.first_name + ' ' + this.props.from.last_name}</td>
+                <td>{this.props.level.points}</td>
                 <td>{this.props.rewardMsg}</td>
-                <td>{this.props.date}</td>
+                <td>{new Date(this.props.date).toDateString()}</td>
             </tr>
             
         )    

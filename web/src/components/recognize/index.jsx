@@ -23,6 +23,7 @@ class Recognize extends React.Component {
     selectPointsLevelId: null,
     messageToRecipient: null,
     messageToManager: null,
+    submissionSuccessful: false
   }
 
   componentDidMount() {
@@ -83,10 +84,27 @@ class Recognize extends React.Component {
       approver_employee_id: this.state.approver && this.state.approver.id,
     });
     if(response.data['status'] === 'success'){
+      this.setState({
+        submissionSuccessful: true,
+        selectedRecipientId: null,
+        selectPointsLevelId: null,
+        messageToRecipient: null,
+        messageToManager: null,
+      });
       alert('Rewards created successfully!');
     } else {
       alert('Some issue in creating rewards');
     }
+  }
+  restartSubmission = () => {
+    this.setState({
+      submissionSuccessful: false,
+      selectedRecipientId: null,
+      selectPointsLevelId: null,
+      messageToRecipient: null,
+      messageToManager: null,
+    });
+    
   }
   render() {
     const childProps = {
@@ -103,6 +121,8 @@ class Recognize extends React.Component {
       messageToRecipient: this.state.messageToRecipient,
       setMessageToRecipient: this.setMessageToRecipient,
       submitRewards: this.submitRewards,
+      submissionSuccessful: this.state.submissionSuccessful,
+      restartSubmission: this.restartSubmission
     };
     return (
       <Container className="recognize-form">

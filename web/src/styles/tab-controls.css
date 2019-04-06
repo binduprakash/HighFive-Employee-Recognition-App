@@ -1,0 +1,29 @@
+.TabControls ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 18px;
+}
+
+.TabControls ul li {
+    background: #ececec;
+    padding: 10px;
+}
+
+.TabControls ul li a {
+    color: black;
+}
+
+.TabControls ul li a:hover,
+.TabControls ul li.active a:hover {
+    text-decoration: none;
+}
+
+.TabControls ul li.active {
+    background: white;
+}
+
+.TabControls ul li.active a {
+    color: black;
+    font-weight: bold;
+}
