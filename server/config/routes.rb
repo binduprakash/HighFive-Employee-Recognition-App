@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  #POST route for slack to communicate with | setting this up https://thoughtbot.com/blog/back-to-basics-http-requests
+  match '/slack' => 'slack#post_example', via: :post
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
