@@ -72,7 +72,7 @@ class App extends Component {
       };
 
       let employeeObject = employees.find(x => x.id == employeeId)
-      if (authenticated === true) {
+      if (authenticated === true & employeeObject !== undefined) {
         newState.pointsAvailable = employeeObject.available_points;
       }
       this.setState(newState, () => {
