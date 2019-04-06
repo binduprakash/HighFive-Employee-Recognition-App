@@ -33,7 +33,9 @@ export default class Login extends Component {
             if (response.data['isAuthenticated']){
                 this.props.userHasAuthenticated(
                     response.data['isAuthenticated'],
-                    response.data['employee_id']
+                    response.data['employee_id'],
+                    response.data['img_url'],
+                    response.data['first_name']
                 );
                 this.props.history.push("/");
             }  

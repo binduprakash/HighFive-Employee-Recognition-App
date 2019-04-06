@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Avatar from 'react-avatar';
 
 class Overview extends Component {
   
@@ -6,7 +7,14 @@ class Overview extends Component {
     
     if (this.props.pointsAvailable !== null) {
       return (
-        <p>Points Available: {this.props.pointsAvailable} | EMP_ID:{this.props.employeeId}</p>
+        <p id="userDetails">
+          <Avatar value={this.props.firstName} size="50" round={true} src={`http://localhost:3000/${this.props.imgUrl}`} />
+          <br/>
+          Hi {this.props.firstName}!
+          <br/>
+          Wallet: {this.props.pointsAvailable} pts
+        </p>
+
       )
     } 
   }

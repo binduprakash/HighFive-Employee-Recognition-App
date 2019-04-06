@@ -47,6 +47,8 @@ class App extends Component {
       isAuthenticated: false,
       isAuthenticating: true,
       employeeId: null,
+      imgUrl: null,
+      firstName: null,
       pointsAvailable: null,
       employees: [],
       rewards: [],
@@ -58,9 +60,9 @@ class App extends Component {
   componentDidMount(){
     const { cookies } = this.props;
     if (cookies.get('isAuthenticated') === 'true') {
-      this.userHasAuthenticated(true, cookies.get('employeeId') || null);
+      this.userHasAuthenticated(true, cookies.get('employeeId') || null, cookies.get('imgUrl') || null, cookies.get('firstName') || null);
     } else {
-      this.userHasAuthenticated(false, null);
+      this.userHasAuthenticated(false, null, null, null);
     }
     this.setState({ isAuthenticating: false });
   }
@@ -95,14 +97,18 @@ class App extends Component {
       })
     })
   }
-  userHasAuthenticated = (authenticated, employeeId) => {
+  userHasAuthenticated = (authenticated, employeeId, imgUrl, firstName) => {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
     cookies.set("employeeId", employeeId, {path: "/"});
+    cookies.set("imgUrl", imgUrl, {path: "/"});
+    cookies.set("firstName", firstName, {path: "/"});
     
     this.setState({ 
       isAuthenticated: authenticated,
-      employeeId: employeeId 
+      employeeId: employeeId,
+      imgUrl: imgUrl,
+      firstName: firstName
     });
     const self = this;
     API.get('points_levels').then(res => {
@@ -189,7 +195,7 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App">
-        <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable}/>
+        <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable} imgUrl={this.state.imgUrl} firstName={this.state.firstName}/>
         <Router>
           <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
           <div>

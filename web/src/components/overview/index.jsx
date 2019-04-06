@@ -19,7 +19,6 @@ class Overview extends Component {
     const { rewards: { pending, settled }, approve_request, reject_request } = this.props;
     return (
       <div className="Overview">
-        <h1>Overview</h1>
         <Profile />
         <div className="Sidebar">
             <ul>
