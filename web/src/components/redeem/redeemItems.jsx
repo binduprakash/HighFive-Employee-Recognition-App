@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Button} from 'react-bootstrap';
 require('../../styles/navbar.css')
 require('../../styles/products.css')
 
@@ -19,12 +19,12 @@ class RedeemItems extends React.Component {
             <p className="description">
               {this.props.description}
             </p>
-            <footer className="actions">
-              <button onClick={this.handleAddClick}>Add</button>
-            </footer>
             <p className="price">
               {this.props.points} Points
             </p> 
+            <footer className="actions">
+              <Button variant="info" onClick={this.handleAddClick}>Add to Cart</Button>
+            </footer>
         </article>
       </div>
     )
