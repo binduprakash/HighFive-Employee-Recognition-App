@@ -37,7 +37,6 @@ a {
 .logo a,
 .main-nav a {
 	padding: 10px 15px;
-	text-transform: uppercase;
 	text-align: center;
 	display: block;
 }
@@ -49,6 +48,15 @@ a {
 
 .main-nav a:hover {
 	color: #718daa;
+}
+
+#logo_high_five{
+	text-decoration: none;
+	color:black;
+	font-size: 40px;
+}
+#logo_high_five:hover{
+	color:white;
 }
 
 

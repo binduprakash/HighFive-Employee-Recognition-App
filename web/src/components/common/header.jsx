@@ -15,8 +15,9 @@ class Overview extends Component {
     return (
       <div className="header">
         <h1 className="logo">
-          <a href="/overview">
-            <img alt="Gift Card" src= {`http://localhost:3000/high_five_logo.png`} style={{height: "50px"}}/> 
+          <a href="/overview" id="logo_high_five">
+            <img alt="Gift Card" src= {`http://localhost:3000/high-five-logo.png`} style={{height: "70px"}}/> 
+            <span>High Five</span>
           </a>
         </h1>
         {this.handlePoints()}
