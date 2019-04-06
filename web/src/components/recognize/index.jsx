@@ -110,7 +110,7 @@ class Recognize extends React.Component {
           <Col></Col>
           <Col xs={6}>
           <Container>
-            <Row>
+            <Row id='recognize-title'>
               <Col className="select-recipient-step">Select<br/>Recipient</Col>
               <Col className="select-level-step">Select<br/>Level</Col>
               <Col className="message-step">Provide<br/>Message</Col>

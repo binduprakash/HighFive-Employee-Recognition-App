@@ -1,6 +1,8 @@
 require 'net/http'
 require 'uri'
 
+# this service constructs message to sent to a recognition receiver in Slack [formatted to match Slack API structure]
+
 class ReceivingUserSlack
     
     def clicky_clicky(user, points, reasonMsg, from, channelID)
@@ -42,7 +44,8 @@ class ReceivingUserSlack
 
       self
     end
-  
+    
+    # construct http into format for Slack to accept
     def deliver
       begin
         http = Net::HTTP.new('slack.com', 443)

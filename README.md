@@ -47,5 +47,32 @@ Employees can send and receive points and feedback based on their performance, e
 * bootsnap >= 1.1.0
 
 
+### Slack Integration Setup
+
+Please refer to Slack API documentation for additional information: https://api.slack.com/
+
+* a Slack team would need to be created as well as a Slack App to handle functionality
+* employee table in database must have valid slack ID for function to work
+
+# Slash Command
+
+* Need to create a slash command in Slack API while logged in with App admin credentials
+
+* Reqeust URL needs to be defined with route to handle, including /slack 'route' for the web app to handle the request from Slack user
+* App 'Verification Token' needs to be stored in .env file to authenticate requests sent to the route
+* Current configuration accepts one slash command /points -> to received a mesage back of how many points a user has.
+
+
+# Sending Notifications to Users on web app events | uses api/chat.postMessage
+
+* Slack 'oAuth Token' needs to be stored in .env file for Slack to handle http request
+
+
+
+## Slack Experience
+
+!["Slash Command to request points total:"] (https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/slash_command_gif.gif)
+
+
 
 

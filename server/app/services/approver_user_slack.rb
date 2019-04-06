@@ -1,6 +1,8 @@
 require 'net/http'
 require 'uri'
 
+# this service constructs message to sent to an approver in Slack [formatted to match Slack API structure]
+
 class ApproverUserSlack
     
     def clicky_clicky(user, points, reasonMsg, from, channelID, mgrMsg)
@@ -46,6 +48,7 @@ class ApproverUserSlack
       self
     end
   
+    # construct http into format for Slack to accept
     def deliver
       begin
         http = Net::HTTP.new('slack.com', 443)
