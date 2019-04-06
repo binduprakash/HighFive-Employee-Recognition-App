@@ -59,7 +59,7 @@ class App extends Component {
   }
   componentDidMount(){
     const { cookies } = this.props;
-    if (cookies.get('isAuthenticated') === 'true') {
+    if (cookies.get('isAuthenticated') === 'true' && this.state.firstName !== null) {
       this.userHasAuthenticated(true, cookies.get('employeeId') || null, cookies.get('imgUrl') || null, cookies.get('profile') || null);
     } else {
       this.userHasAuthenticated(false, null, null, {});
