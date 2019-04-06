@@ -35,7 +35,12 @@ export default class Login extends Component {
                     response.data['isAuthenticated'],
                     response.data['employee_id'],
                     response.data['img_url'],
-                    response.data['first_name']
+                    {
+                        firstName: response.data['first_name'],
+                        lastName: response.data['last_name'],
+                        title: response.data['title'],
+                        department:  response.data['department'],
+                    }
                 );
                 this.props.history.push("/");
             }  

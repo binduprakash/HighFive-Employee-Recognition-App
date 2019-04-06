@@ -6,6 +6,9 @@ class Api::V1::SessionsController < ApplicationController
                 'employee_id': employee.id,
                 'img_url': employee.img_url,
                 'first_name': employee.first_name,
+                'last_name': employee.last_name,
+                'title': employee.title,
+                'department': employee.department,
             }
         else
             render json: {'isAuthenticated': false}

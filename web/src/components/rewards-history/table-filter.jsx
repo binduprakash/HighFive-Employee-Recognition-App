@@ -13,7 +13,7 @@ class TableFilter extends React.Component {
                         <input type="radio" name="status" value="Sent"/> Points Sent
                     </label>
                     <label className="btn btn-warning">
-                        <input type="radio" name="status" value="approvals"/> Approvals
+                        <input type="radio" name="status" value="approvals"/> Approvals &amp; Rejections
                     </label>
                 </div>
             </div>        
