@@ -38,7 +38,7 @@ class Api::V1::RewardsController < ApplicationController
         manager_employee = reward_params[:approver_employee_id]
 
         points_msg = reward_params[:level_id]
-        points_text = points_name(points_msg)
+        points_text = points_name(reward_params[:level_id])
 
         rewards_msg = reward_params[:reward_message]
         
