@@ -34,6 +34,7 @@ ceo = Employee.create({
     title: 'Cheif Executive Officer',
     img_url: open_asset('ceo_pic.jpg'),
     available_points: 0,
+    slack_id: 'UHNTVJL4C'
 })
 
 op_mgr = Employee.create({
@@ -46,6 +47,7 @@ op_mgr = Employee.create({
     img_url: open_asset('op_mgr_pic.jpg'),
     manager: ceo,
     available_points: 0,
+    slack_id: 'UH9BLD350'
 })
 
 Employee.create({
@@ -58,6 +60,7 @@ Employee.create({
     img_url: open_asset('op_sales_pic.jpg'),
     manager: op_mgr,
     available_points: 1000,
+    slack_id: 'UH9BQK5UK'
 })
 
 Employee.create({
@@ -70,6 +73,7 @@ Employee.create({
     img_url: open_asset('op_ac_pic.jpg'),
     manager: op_mgr,
     available_points: 500,
+    slack_id: 'UHP8UM2Q4'
 })
 
 engg_mgr = Employee.create({
@@ -82,6 +86,7 @@ engg_mgr = Employee.create({
     img_url: open_asset('engg_mgr_pic.jpg'),
     manager: ceo,
     available_points: 0,
+    slack_id: 'UHP8W2QAY'
 })
 
 Employee.create({
@@ -94,6 +99,7 @@ Employee.create({
     img_url: open_asset('eg_se_pic.jpg'),
     manager: engg_mgr,
     available_points: 1000,
+    slack_id: 'UHR6DG86B'
 })
 
 Employee.create({
@@ -106,6 +112,7 @@ Employee.create({
     img_url: open_asset('eg_qa_pic.jpg'),
     manager: engg_mgr,
     available_points: 500,
+    slack_id: 'UHFB2T909'
 })
 
 puts ">> #{Employee.count} Employees Created"
@@ -185,7 +192,7 @@ RedeemItem.create({
   name: 'Canadian Red Cross',
   points: 500,
   amount: 50.00,
-  description: 'The Canadian Red Cross Society is a Canadian humanitarian charitable organization, and one of 190 national Red Cross and Red Crescent societies.',
+  description: 'The Canadian Red Cross Society is a Canadian humanitarian charitable organization.',
   image_url: open_asset('red_cross_pic.jpg'),
 })
 

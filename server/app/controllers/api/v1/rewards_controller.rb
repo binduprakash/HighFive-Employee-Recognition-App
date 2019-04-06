@@ -34,17 +34,16 @@ class Api::V1::RewardsController < ApplicationController
         
         from_employee = reward_params[:from_employee_id]
         full_name_from_employee = full_name(from_employee)
-        
+
+        manager_employee = reward_params[:approver_employee_id]
+
         points_msg = reward_params[:level_id]
         points_text = points_name(points_msg)
 
         rewards_msg = reward_params[:reward_message]
         
-        
-        # hardcoded to David Kelly right now
-        channel_ID = 'UHNTVJL4C'
-        #hard coded to Clara
-        channel_ID_Approver = 'UH9BLD350'
+        channel_ID = slack_id(to_employee)
+        channel_ID_Approver = slack_id(manager_employee)
 
         # need to move Receiving User Slack to after approval route
 
@@ -84,6 +83,11 @@ class Api::V1::RewardsController < ApplicationController
     def full_name (employeeId)
         emp = Employee.select("first_name", "last_name").find_by(:id => employeeId)
         toEmployee = emp.first_name + " " + emp.last_name
+    end
+
+    def slack_id (employeeId)
+        emp = Employee.select("slack_id").find_by(:id => employeeId)
+        slackID = emp.slack_id
     end
 
     def points_name (pointsId)
