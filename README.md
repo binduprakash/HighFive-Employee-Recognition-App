@@ -71,7 +71,10 @@ Please refer to Slack API documentation for additional information: https://api.
 
 ## Slack Experience
 
+Slash Command to request points available:
+
 ![Slash Command to request points total:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/slash_command_gif.gif)
+
 
 
 
