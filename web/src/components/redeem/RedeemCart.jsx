@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RedeemItems from "./redeemItems.jsx"
 import {Row, Col, Button} from 'react-bootstrap';
-
 require('../../styles/products.css')
 
 class RedeemCart extends Component {
