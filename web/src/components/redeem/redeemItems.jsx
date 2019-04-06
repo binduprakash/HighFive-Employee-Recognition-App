@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'react-bootstrap';
+import {Button, Row, Col} from 'react-bootstrap';
 require('../../styles/navbar.css')
 require('../../styles/products.css')
 
@@ -14,16 +14,28 @@ class RedeemItems extends React.Component {
         <article className="product">
           <header>
               <img alt="Gift Card" src= {`http://localhost:3000/${this.props.image}`}  style={{height: "200px", width: "350px;"}}/>
-              <h4> {this.props.name} </h4>
+              <h5 className="product-heading"> {this.props.name} </h5>
           </header>
+          <Row>
             <p className="description">
               {this.props.description}
             </p>
-            <p className="price">
-              {this.props.points} Points
-            </p> 
+          </Row>
+          <Row>
+            <Col>
+              <p className="price">
+                $25
+              </p>
+            </Col>
+            <Col>
+              <p className="price">
+                {this.props.points} Points
+              </p> 
+            </Col>
+          </Row>
+
             <footer className="actions">
-              <Button variant="info" onClick={this.handleAddClick}>Add to Cart</Button>
+              <Button variant="info" onClick={this.handleAddClick} block>Add to Cart</Button>
             </footer>
         </article>
       </div>

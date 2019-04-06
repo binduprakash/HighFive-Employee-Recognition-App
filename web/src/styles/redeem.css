@@ -10,3 +10,7 @@
 .pay-points{
     margin-top: 20px;
 } 
+
+.add-to-cart-button {
+    min-width: 200;
+}

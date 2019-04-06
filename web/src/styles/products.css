@@ -24,6 +24,15 @@ body {
   float: right;
   margin-right: 15px;
 }
+.cart-message {
+  text-align: right;
+}
+.cart-message-row {
+  margin-bottom:15px;
+}
+.products-index {
+  margin-top: 30px;
+}
 .product {
     flex:      1;
     max-width: 260px;
@@ -36,7 +45,6 @@ body {
     padding:       15px;
     margin-top:    20px;
     margin:        10px;
-    min-height:    418px;
 }
     header img {
       max-width: 100%;
@@ -44,3 +52,18 @@ body {
       margin: auto;
       display: block;
     }
+
+.description {
+  font-size: 12px;
+  min-height: 56px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.product-heading { 
+  text-align: center;
+}
