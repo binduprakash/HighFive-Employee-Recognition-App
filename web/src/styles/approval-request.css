@@ -8,6 +8,11 @@
 .Approvals .approval .actions {
     display: flex;
 }
-.Approvals .approval .actions button {
-    margin: 0 10px;
+
+.Approvals .approval .actions a {
+    margin-right: 10px;
+}
+
+.Approvals .approval .actions a.secondary {
+    color: red;
 }

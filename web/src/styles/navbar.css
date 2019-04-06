@@ -37,18 +37,28 @@ a {
 .logo a,
 .main-nav a {
 	padding: 10px 15px;
-	text-transform: uppercase;
 	text-align: center;
 	display: block;
+	font-size:20px;
 }
 
 .main-nav a {
 	color: #34495e;
-	font-size: .99em;
+	font-size: 20px;
 }
 
 .main-nav a:hover {
 	color: #718daa;
+	text-decoration: none;
+}
+
+#logo_high_five{
+	text-decoration: none;
+	color:black;
+	font-size: 40px;
+}
+#logo_high_five:hover{
+	color:white;
 }
 
 
@@ -73,6 +83,9 @@ a {
   justify-content: space-around;
 }
 
+#userDetails{
+	margin-right:20px;
+}
 
 /* ================================= 
   Media Queries

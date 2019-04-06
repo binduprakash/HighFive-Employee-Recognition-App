@@ -6,35 +6,27 @@
     width: 450px;
     display: flex;
     border-radius: 10px 10px 10px 10px;
-    margin-top: -250px;
+    margin-top: -200px;
     display: flex;
     align-items: normal;
     flex-direction: column;
     padding: 20px;
 }
 
-.Sidebar ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 18px;
+.Sidebar .Sidebar-Content {
+    max-height: calc(100% - 60px);
+    display: block;
+    overflow-y: scroll;
 }
-
-.Sidebar li:nth-child(1) {
-    
-    background-color: rgb(165, 95, 95);
-    padding: 10px 10px 10px 10px;
-}
-
-.Sidebar li:nth-child(2) {
-    
-    float: left;
-    background-color: rgb(94, 143, 199);
-    padding: 10px 10px 10px 10px;
-}
-
 
 .Overview {
     margin: 0 auto;
     max-width: 700px;
+}
+
+.Profile__Details img {
+    max-width: 100%;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
 }

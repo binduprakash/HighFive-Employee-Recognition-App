@@ -47,6 +47,8 @@ class App extends Component {
       isAuthenticated: false,
       isAuthenticating: true,
       employeeId: null,
+      imgUrl: null,
+      firstName: null,
       pointsAvailable: null,
       employees: [],
       rewards: [],
@@ -58,9 +60,9 @@ class App extends Component {
   componentDidMount(){
     const { cookies } = this.props;
     if (cookies.get('isAuthenticated') === 'true') {
-      this.userHasAuthenticated(true, cookies.get('employeeId') || null);
+      this.userHasAuthenticated(true, cookies.get('employeeId') || null, cookies.get('imgUrl') || null, cookies.get('profile') || null);
     } else {
-      this.userHasAuthenticated(false, null);
+      this.userHasAuthenticated(false, null, null, {});
     }
     this.setState({ isAuthenticating: false });
   }
@@ -78,7 +80,7 @@ class App extends Component {
       this.setState(newState, () => {
         const { employees: freshEmployees, levels } = this.state;
         API.get('rewards').then(res => {
-          const rewards = res.data;
+          const rewards = res.data.sort((a, b) => a.id < b.id);
           const mappedRewards = rewards.map((reward) => {
             const from = freshEmployees.find(e => e.id == reward.from_employee_id);
             const to = freshEmployees.find(e => e.id == reward.to_employee_id);
@@ -95,24 +97,44 @@ class App extends Component {
       })
     })
   }
-  userHasAuthenticated = (authenticated, employeeId) => {
+  userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { firstName = '', lastName = '', title = '', department = '' }) => {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
-    cookies.set("employeeId", employeeId, {path: "/"});
-    
-    this.setState({ 
-      isAuthenticated: authenticated,
-      employeeId: employeeId 
-    });
-    const self = this;
-    API.get('points_levels').then(res => {
-      const levels = res.data;
-      this.setState({
-        levels
-      }, () => {
-        self.getEmployeesAndRewards(authenticated, employeeId);
-      })
-    });
+    if(authenticated) {
+      cookies.set("employeeId", employeeId, {path: "/"});
+      cookies.set("imgUrl", imgUrl, {path: "/"});
+      cookies.set("profile", {
+        firstName,
+        lastName,
+        title,
+        department,
+        imgUrl
+      }, {path: "/"});
+      
+      this.setState({ 
+        isAuthenticated: authenticated,
+        employeeId,
+        imgUrl,
+        firstName,
+        lastName,
+        title,
+        department
+      });
+
+      const self = this;
+      API.get('points_levels').then(res => {
+        const levels = res.data;
+        this.setState({
+          levels
+        }, () => {
+          self.getEmployeesAndRewards(authenticated, employeeId);
+        })
+      });
+    } else {
+      this.setState({ 
+        isAuthenticated: authenticated,
+      });
+    }
   }
 
   update_request(request) {
@@ -128,23 +150,30 @@ class App extends Component {
       approved_at
      } = request;
     const self = this;
-    API.patch(`rewards/${id}`, {
-      data: {
-        reward_message,
-        approver_message,
-        to_employee_id, 
-        level_id,
-        from_employee_id,
-        approver_employee_id,
-        status,
-        approved_at
-      }
+    API.put(`rewards/${id}`, {
+      reward_message,
+      approver_message,
+      to_employee_id, 
+      level_id,
+      from_employee_id,
+      approver_employee_id,
+      status,
+      approved_at
     }).then(res => {
       const updatedReward = res.data;
-      const existingRewards = self.rewards;
+      const existingRewards = self.state.rewards;
       const updationIndex = existingRewards.findIndex(rew => rew.id == id);
-      existingRewards[updationIndex] = updatedReward;
-      this.setState({
+      // build the from and to objects
+      const from = self.state.employees.find(e => e.id == updatedReward.from_employee_id);
+      const to = self.state.employees.find(e => e.id == updatedReward.to_employee_id);
+      const level = self.state.levels.find(l => l.id == updatedReward.level_id);
+      existingRewards[updationIndex] = {
+        ...updatedReward,
+        from,
+        to,
+        level
+      };
+      self.setState({
         rewards: existingRewards
       });
     });
@@ -166,30 +195,43 @@ class App extends Component {
   
   handleLogout = event => {
     const { cookies } = this.props;
-    this.userHasAuthenticated(false, null);
-    this.setState({ 
+    this.userHasAuthenticated(false, null, null, {});
+    cookies.remove('cart');
+    cookies.set('isAuthenticated', false);
+    cookies.remove('employeeId', '');
+    cookies.remove('imgUrl', '');
+    cookies.remove('profile', '');
+    this.setState({
       pointsAvailable: null
     })
-    cookies.set('cart', '');
   }
   render() {
+    const { employeeId } = this.state;
     const childProps = {
       rewards: {
         all: this.state.rewards,
-        settled: this.state.rewards.filter(rew => rew.status !== 'pending'),
-        pending: this.state.rewards.filter(rew => rew.status == 'pending'),
+        approved: this.state.rewards.filter(rew => rew.status === 'approved' && rew.to_employee_id === parseInt(employeeId)),
+        pending: this.state.rewards.filter(rew => rew.status === 'pending' && rew.approver_employee_id === parseInt(employeeId)),
+        approvals: this.state.rewards.filter(rew => rew.approver_employee_id === parseInt(employeeId)),
+        sent: this.state.rewards.filter(rew => rew.from_employee_id === parseInt(employeeId)),
+        received: this.state.rewards.filter(rew => rew.to_employee_id === parseInt(employeeId)),
       },
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
       employeeId: this.state.employeeId,
       approve_request: this.approve_request,
       reject_request: this.reject_request,
-      pointsAvailable: this.state.pointsAvailable
+      pointsAvailable: this.state.pointsAvailable,
+      imgUrl: this.state.imgUrl,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      title: this.state.title,
+      department: this.state.department
     };
     return (
       !this.state.isAuthenticating &&
       <div className="App">
-        <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable}/>
+        <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable} imgUrl={this.state.imgUrl} firstName={this.state.firstName}/>
         <Router>
           <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
           <div>
