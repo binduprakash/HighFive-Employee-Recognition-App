@@ -24,7 +24,7 @@ class RedeemItems extends React.Component {
           <Row>
             <Col>
               <p className="price">
-                $25
+                $50
               </p>
             </Col>
             <Col>
