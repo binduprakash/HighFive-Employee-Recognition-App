@@ -27,7 +27,10 @@ class RedeemCart extends Component {
             <Row className="cart-message-row">
               <Col></Col>
               <Col>
-                <a href="#" className="myCart" onClick={this.proceedToCart}>My Cart({this.props.cart.length})</a>
+                <a href="#" className="myCart" onClick={this.proceedToCart}>
+                  <img alt="Empty-Card" src= {`http://localhost:3000/cart.ico`}  style={{height: "30px", width: "40px;"}}/>
+                  My Cart({this.props.cart.length})
+                </a>
               </Col>
               </Row>
             <Row>

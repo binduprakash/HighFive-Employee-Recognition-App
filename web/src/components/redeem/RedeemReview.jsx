@@ -24,7 +24,7 @@ class RedeemReview extends Component {
             <td width="50%">
               <h5>{redeemItem.name}</h5>{redeemItem.points} Points | $50
             </td>
-            <td width="30%">
+            <td className="increase-decrease-col" width="30%">
             <button id={redeemItem.id} className="cartButton" onClick={handleReduceQuantityButton}>-</button>
             {quantity}
             <button id={redeemItem.id} className="cartButton" onClick={handleIncreaseQuantityButton}>+</button>
@@ -63,7 +63,7 @@ class RedeemReview extends Component {
     return (
       <Container>
         <section className="products-index">
-          <Row>
+          <Row className="redeem-review-container">
             <Col></Col>
             <Col lg={6}>
             {
@@ -77,7 +77,9 @@ class RedeemReview extends Component {
                 <tbody>
                   <tr>
                     <td className="empty-cart-container">
-                      Your cart is empty.
+                      <img alt="Empty-Card" src= {`http://localhost:3000/empty-cart.png`}  style={{height: "200px", width: "160px;"}}/>
+                      <br/>
+                      <h5>Your cart is empty.</h5>
                     </td>
                   </tr>
                 </tbody>

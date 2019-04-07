@@ -21,6 +21,8 @@ class Redeem extends React.Component {
       showAlert:false,
       closeAlert:null,
       alertMessage:null,
+      showPrimary: false,
+      primaryText: null
     }
   }
   componentDidMount(){
@@ -54,6 +56,7 @@ class Redeem extends React.Component {
       this.setState({
         showAlert:true,
         alertMessage: "You don't have sufficient points to redeem this card",
+        showPrimary:false
       });
     } else {
       cart.push(redeemItemId.toString());
@@ -62,6 +65,8 @@ class Redeem extends React.Component {
         this.setState({
           showAlert:true,
           alertMessage: 'Gift Card added to your Cart!',
+          showPrimary: true,
+          primaryText: 'Go to My Cart'
         });
       }
       const { cookies } = this.props;
@@ -109,6 +114,10 @@ class Redeem extends React.Component {
   closeAlertModel = () => {
     this.setState({showAlert:false});
   }
+  handlePrimarClick = () => {
+    this.props.history.push("/redeem/review");
+    this.closeAlertModel();
+  }
 
   render() {
     const childProps = {
@@ -127,6 +136,9 @@ class Redeem extends React.Component {
             show={this.state.showAlert}
             closeAlert={this.closeAlertModel} 
             message={this.state.alertMessage}
+            showPrimary={this.state.showPrimary}
+            primaryText={this.state.primaryText}
+            handlePrimaryClick={this.handlePrimarClick}
         />
         <Switch>
           <AppliedRoute path='/redeem/cart' component={RedeemCart} props={childProps}/>
