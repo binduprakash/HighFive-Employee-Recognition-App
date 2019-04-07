@@ -12,13 +12,6 @@ import '../../styles/history.css'
 import '../../styles/rewards-activities.css'
 import '../../styles/tab-controls.css'
 
-/*
-Notes to Maddie:
-- we will have to change state or something with the buttons (make prettier later) to filter which table shows
-- we need to determine best way to get the actual employee name rather than the ID in the reward table. I don't know solution yet.
-- I did not start the approvals table
-*/
-
 class RewardsActivities extends React.Component {
     componentDidMount(){
         if(!this.props.isAuthenticated){

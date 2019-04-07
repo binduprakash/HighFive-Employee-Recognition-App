@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import API from '../api';
 
 require('../styles/navbar.css')
+require('../styles/login.css')
 
 
 class NavBar extends Component {
@@ -59,7 +60,7 @@ class App extends Component {
   }
   componentDidMount(){
     const { cookies } = this.props;
-    if (cookies.get('isAuthenticated') === 'true' && this.state.firstName !== null) {
+    if (cookies.get('isAuthenticated') === 'true') {
       this.userHasAuthenticated(true, cookies.get('employeeId') || null, cookies.get('imgUrl') || null, cookies.get('profile') || null);
     } else {
       this.userHasAuthenticated(false, null, null, {});
