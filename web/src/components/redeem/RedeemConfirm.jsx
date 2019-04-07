@@ -6,9 +6,9 @@ class RecentRewards extends Component {
   render() {
     return (
       <Container>
-        <Row>
+        <Row className="order-success">
           <Col></Col>
-          <Col>Order has been successfully placed</Col>
+          <Col>Order has been placed successfully!</Col>
           <Col></Col>
         </Row>
       </Container>

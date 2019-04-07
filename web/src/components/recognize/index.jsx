@@ -30,6 +30,7 @@ class Recognize extends React.Component {
       alert('Login In');
       this.props.history.push("/login");
     } else {
+      this.props.setCurrentPage('recognize');
       API.get('employees').then(res => {
           const employees = res.data;
           this.setState({ employees });

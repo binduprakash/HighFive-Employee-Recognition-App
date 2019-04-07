@@ -28,7 +28,7 @@ body {
   text-align: right;
 }
 .cart-message-row {
-  margin-bottom:15px;
+  margin-bottom:0px;
 }
 .products-index {
   margin-top: 30px;
@@ -58,10 +58,12 @@ body {
   min-height: 56px;
   padding-left: 15px;
   padding-right: 15px;
+  margin-bottom: 0px;
 }
 
 .price {
   font-weight: bold;
+  margin-bottom: 0px;
 }
 
 .product-heading { 

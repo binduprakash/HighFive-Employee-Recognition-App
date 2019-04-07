@@ -12,7 +12,7 @@ class Overview extends Component {
           <br/>
           Hi {this.props.firstName}!
           <br/>
-          Wallet: {this.props.pointsAvailable} pts
+          Wallet: {this.props.pointsAvailable} points
         </p>
 
       )

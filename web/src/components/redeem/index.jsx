@@ -20,6 +20,7 @@ class Redeem extends React.Component {
       redeemItems: [],
       showAlert:false,
       closeAlert:null,
+      alertMessage:null,
     }
   }
   componentDidMount(){
@@ -27,9 +28,10 @@ class Redeem extends React.Component {
       alert('Login In');
       this.props.history.push("/login");
     } else {
+      this.props.setCurrentPage('redeem');
       const { cookies } = this.props;
-      if (cookies.get('cart')){
-        this.setState({ cart: cookies.get('cart').split(',')});
+      if (cookies.get('cart', {path: "/"})){
+        this.setState({ cart: cookies.get('cart', {path: "/"}).split(',')});
       }
       API.get('redeem_items')
       .then(res => {
@@ -41,7 +43,7 @@ class Redeem extends React.Component {
     }
   }
     
-  addToCart = redeemItemId => {
+  addToCart = (redeemItemId, showAlert=true) => {
     let cart = this.state.cart;
     const redeemItem = this.state.redeemItems.find((value) => {
       if(value.id == redeemItemId){
@@ -49,12 +51,21 @@ class Redeem extends React.Component {
       }
     });
     if((this.getCartTotalPoints() + redeemItem.points) > this.props.pointsAvailable){
-      alert ("You don't have sufficient points to redeem this card");
+      this.setState({
+        showAlert:true,
+        alertMessage: "You don't have sufficient points to redeem this card",
+      });
     } else {
       cart.push(redeemItemId.toString());
-      this.setState({cart, showAlert:true});
+      this.setState({cart});
+      if(showAlert){
+        this.setState({
+          showAlert:true,
+          alertMessage: 'Gift Card added to your Cart!',
+        });
+      }
       const { cookies } = this.props;
-      cookies.set('cart', cart.join(','));
+      cookies.set('cart', cart.join(','), {path: "/"});
     }
   }
   removeFromCart = redeemItemId => {
@@ -62,12 +73,12 @@ class Redeem extends React.Component {
     cart.splice(cart.indexOf(redeemItemId.toString()), 1);
     this.setState({cart});
     const { cookies } = this.props;
-    cookies.set('cart', cart.join(','));
+    cookies.set('cart', cart.join(','), {path: "/"});
   }
   clearCart = () => {
     this.setState({cart: []});
     const { cookies } = this.props;
-    cookies.set('cart', '');
+    cookies.set('cart', '', {path: "/"});
   }
 
   getItemAndQuantityFromCart = () => {
@@ -112,7 +123,11 @@ class Redeem extends React.Component {
     }
     return (
       <div>
-        <HighFiveAlert show={this.state.showAlert} closeAlert={this.closeAlertModel} message='Woohoo, you have added to Cart!'/>
+        <HighFiveAlert 
+            show={this.state.showAlert}
+            closeAlert={this.closeAlertModel} 
+            message={this.state.alertMessage}
+        />
         <Switch>
           <AppliedRoute path='/redeem/cart' component={RedeemCart} props={childProps}/>
           <AppliedRoute path='/redeem/review' component={RedeemReview} props={childProps}/>

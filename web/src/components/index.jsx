@@ -5,40 +5,10 @@ import Routes from './Routes'
 import { withCookies, Cookies } from 'react-cookie';
 import { compose } from 'recompose';
 import API from '../api';
+import NavBar from './common/NavBar';
 
-require('../styles/navbar.css')
 require('../styles/login.css')
 
-
-class NavBar extends Component {
-  render() {
-    const {showLogin, handleLogout} = this.props;
-    return (
-      <div className="header_2">
-        <ul className="main-nav">
-          <li>
-            <Link to="/overview">Overview</Link>
-          </li>
-          <li>
-            <Link to="/recognize">Recognize</Link>
-          </li>
-          <li>
-            <Link to="/redeem">Redeem Rewards</Link>
-          </li>
-          <li>
-            <Link to="/rewards_activities">Rewards History</Link>
-          </li>
-          <li>
-            {showLogin
-              ? <Link to="/login" onClick={handleLogout}>Logout</Link>
-              : <Link to="/login">Login</Link>
-            }
-          </li>
-        </ul>
-      </div>
-    );
-  }
-}
 
 class App extends Component {
 
@@ -53,7 +23,9 @@ class App extends Component {
       pointsAvailable: null,
       employees: [],
       rewards: [],
-      levels: []
+      levels: [],
+      currentPage: null,
+      isManager: false,
     };
     this.approve_request = this.approve_request.bind(this);
     this.reject_request = this.reject_request.bind(this);
@@ -98,7 +70,13 @@ class App extends Component {
       })
     })
   }
-  userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { firstName = '', lastName = '', title = '', department = '' }) => {
+  userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { 
+    firstName = '',
+    lastName = '',
+    title = '',
+    department = '',
+    isManager = false,
+  }) => {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
     if(authenticated) {
@@ -109,7 +87,8 @@ class App extends Component {
         lastName,
         title,
         department,
-        imgUrl
+        imgUrl,
+        isManager
       }, {path: "/"});
       
       this.setState({ 
@@ -119,7 +98,8 @@ class App extends Component {
         firstName,
         lastName,
         title,
-        department
+        department,
+        isManager
       });
 
       const self = this;
@@ -198,13 +178,17 @@ class App extends Component {
     const { cookies } = this.props;
     this.userHasAuthenticated(false, null, null, {});
     cookies.remove('cart');
-    cookies.set('isAuthenticated', false);
+    cookies.set('isAuthenticated', false, {path: "/"});
     cookies.remove('employeeId', '');
     cookies.remove('imgUrl', '');
     cookies.remove('profile', '');
     this.setState({
       pointsAvailable: null
     })
+  }
+
+  setCurrentPage = (page) => {
+    this.setState({currentPage: page});
   }
   render() {
     const { employeeId } = this.state;
@@ -227,14 +211,16 @@ class App extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       title: this.state.title,
-      department: this.state.department
+      department: this.state.department,
+      isManager: this.state.isManager,
+      setCurrentPage: this.setCurrentPage,
     };
     return (
       !this.state.isAuthenticating &&
       <div className="App">
         <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable} imgUrl={this.state.imgUrl} firstName={this.state.firstName}/>
         <Router>
-          <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
+          <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout} currentPage={this.state.currentPage}/>
           <div>
             <Routes childProps={childProps} />
           </div>
