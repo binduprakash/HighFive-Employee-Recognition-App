@@ -8,6 +8,8 @@ import ReceivedHistory from './received-history.jsx'
 import SentHistory from './sent-history.jsx'
 import ApprovalsRejectionsHistory from './approvals-rejections-history.jsx'
 
+import {Container} from 'react-bootstrap';
+
 import '../../styles/history.css'
 import '../../styles/rewards-activities.css'
 import '../../styles/tab-controls.css'
@@ -24,8 +26,7 @@ class RewardsActivities extends React.Component {
         const { location, rewards: { approvals, sent, received } } = this.props;
         
         return (
-            <div className="Rewards_Activities">
-                <h1>Rewards Activities</h1>
+            <Container className="rewards-container">
                 <div className="TabControls">
                     <ul>
                         <li className={location.pathname === '/rewards_activities/received' ? 'active': ''}>
@@ -47,7 +48,7 @@ class RewardsActivities extends React.Component {
                         <Redirect from="/rewards_activities" to="/rewards_activities/received"/>
                     </Switch>
                 </div>
-            </div>
+            </Container>
         )
     }
 }
