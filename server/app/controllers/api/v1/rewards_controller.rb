@@ -17,7 +17,15 @@ class Api::V1::RewardsController < ApplicationController
 
     # PATCH/PUT /rewards/1
     def update
+        oldStatus = @reward.status
         if @reward.update(reward_params)
+            newStatus = @reward.status
+            if oldStatus == 'pending' && newStatus == 'approved'
+                employee = Employee.find(@reward.to_employee_id)
+                level = PointsLevel.find(@reward.level_id)
+                employee.available_points += level.points
+                employee.save
+            end
             render json: @reward
         else
             render json: @reward.errors, status: :unprocessable_entity
