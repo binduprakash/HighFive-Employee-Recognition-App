@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import {Row, Col, Container, Table} from 'react-bootstrap'
+import {Row, Col, Container, Table, Button} from 'react-bootstrap'
 
 require('../../styles/products.css')
 require('../../styles/redeem.css')
 
 class RecentRewards extends Component {
+  goBackToRedeemCart = () => {
+    this.props.history.push("/redeem/cart");
+  }
   render() {
     return (
       <Container>
@@ -18,7 +21,11 @@ class RecentRewards extends Component {
                     <img alt="check-mart" src= {`http://localhost:3000/check-mark.png`}  style={{height: "200px", width: "160px;"}}/>
                     <br/>
                     <h5>Order has been placed successfully!</h5>
-                    <p>Please check your email inbox to know further details. You have {this.props.pointsAvailable} points available.</p>
+                    <p>Please check your email inbox to know further details. You have {this.props.pointsAvailable} points remaining.</p>
+                    {
+                      this.props.pointsAvailable &&
+                      <Button variant="secondary" onClick={this.goBackToRedeemCart}>Continue Redeeming</Button>
+                    }
                   </td>
                 </tr>
               </tbody>
