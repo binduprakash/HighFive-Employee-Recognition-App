@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import API from '../api';
 
 require('../styles/navbar.css')
+require('../styles/login.css')
 
 
 class NavBar extends Component {
