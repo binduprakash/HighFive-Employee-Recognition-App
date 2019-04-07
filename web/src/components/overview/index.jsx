@@ -16,6 +16,7 @@ class Overview extends Component {
       alert('Login In');
       this.props.history.push("/login");
     }
+    this.props.setCurrentPage('overview');
   }
   render() {
     const { location, rewards: { pending, approved }, approve_request, reject_request, employeeId, pointsAvailable, imgUrl, firstName, lastName, title, department } = this.props;

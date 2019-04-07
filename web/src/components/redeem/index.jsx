@@ -28,6 +28,7 @@ class Redeem extends React.Component {
       alert('Login In');
       this.props.history.push("/login");
     } else {
+      this.props.setCurrentPage('redeem');
       const { cookies } = this.props;
       if (cookies.get('cart', {path: "/"})){
         this.setState({ cart: cookies.get('cart', {path: "/"}).split(',')});

@@ -12,26 +12,26 @@ require('../styles/login.css')
 
 class NavBar extends Component {
   render() {
-    const {showLogin, handleLogout} = this.props;
+    const {showLogin, handleLogout, currentPage} = this.props;
     return (
       <div className="header_2">
         <ul className="main-nav">
           <li>
-            <Link to="/overview">Overview</Link>
+            <Link className={currentPage === 'overview' ? 'main-nav-active': 'main-nav-inactive'} to="/overview">Overview</Link>
           </li>
           <li>
-            <Link to="/recognize">Recognize</Link>
+            <Link className={currentPage === 'recognize' ? 'main-nav-active': 'main-nav-inactive'} to="/recognize">Recognize</Link>
           </li>
           <li>
-            <Link to="/redeem">Redeem Rewards</Link>
+            <Link className={currentPage === 'redeem' ? 'main-nav-active': 'main-nav-inactive'} to="/redeem">Redeem Rewards</Link>
           </li>
           <li>
-            <Link to="/rewards_activities">Rewards History</Link>
+            <Link className={currentPage === 'rewards_activities' ? 'main-nav-active': 'main-nav-inactive'} to="/rewards_activities">Rewards History</Link>
           </li>
           <li>
             {showLogin
-              ? <Link to="/login" onClick={handleLogout}>Logout</Link>
-              : <Link to="/login">Login</Link>
+              ? <Link className={currentPage === 'login' ? 'main-nav-active': 'main-nav-inactive'} to="/login" onClick={handleLogout}>Logout</Link>
+              : <Link  className={currentPage === 'login' ? 'main-nav-active': 'main-nav-inactive'} to="/login">Login</Link>
             }
           </li>
         </ul>
@@ -53,7 +53,8 @@ class App extends Component {
       pointsAvailable: null,
       employees: [],
       rewards: [],
-      levels: []
+      levels: [],
+      currentPage: null,
     };
     this.approve_request = this.approve_request.bind(this);
     this.reject_request = this.reject_request.bind(this);
@@ -206,6 +207,10 @@ class App extends Component {
       pointsAvailable: null
     })
   }
+
+  setCurrentPage = (page) => {
+    this.setState({currentPage: page});
+  }
   render() {
     const { employeeId } = this.state;
     const childProps = {
@@ -227,14 +232,15 @@ class App extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       title: this.state.title,
-      department: this.state.department
+      department: this.state.department,
+      setCurrentPage: this.setCurrentPage,
     };
     return (
       !this.state.isAuthenticating &&
       <div className="App">
         <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable} imgUrl={this.state.imgUrl} firstName={this.state.firstName}/>
         <Router>
-          <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout}/>
+          <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout} currentPage={this.state.currentPage}/>
           <div>
             <Routes childProps={childProps} />
           </div>

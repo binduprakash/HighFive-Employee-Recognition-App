@@ -20,6 +20,7 @@ class RewardsActivities extends React.Component {
             alert('Login In');
             this.props.history.push("/login");
         }
+        this.props.setCurrentPage('rewards_activities');
     }
 
     render() {

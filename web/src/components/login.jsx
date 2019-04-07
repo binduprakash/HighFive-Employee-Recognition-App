@@ -12,7 +12,9 @@ export default class Login extends Component {
             password: "",
         };
     }
-  
+    componentDidMount(){
+        this.props.setCurrentPage('login');
+    }
     validateForm() {
         return this.state.email.length > 0 && this.state.password.length > 0;
     }
