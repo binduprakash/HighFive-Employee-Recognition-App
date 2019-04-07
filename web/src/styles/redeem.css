@@ -32,3 +32,12 @@
 .increase-decrease-col { 
     text-align: center;
 }
+
+.total-point-col { 
+    text-align: right;
+    font-weight: bold;
+}
+
+.col-center {
+    text-align: center;
+}

@@ -35,8 +35,8 @@ class RedeemReview extends Component {
     });
     tableRows.push((
       <tr>
-        <td colspan="2">Total Points</td>
-        <td>{this.props.getCartTotalPoints()}</td>
+        <td class="total-point-col" colspan="2">Total Points</td>
+        <td className="col-center">{this.props.getCartTotalPoints()}</td>
       </tr>
     ))
     return tableRows;
