@@ -90,8 +90,10 @@ class RedeemReview extends Component {
           </Row>
           <Row>
             <Col></Col>
-            <Col>
-              <Button variant="secondary" onClick={this.goBackToRedeemCart}>Go Back</Button><Button variant="success" className="pay-points" disabled={!this.props.getCartTotalPoints()} onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</Button> 
+            <Col lg={6} className="col-center">
+              <Button variant="danger" onClick={this.props.clearCart}>Clear Cart</Button>
+              <Button variant="secondary" className="pay-points" onClick={this.goBackToRedeemCart}>Go Back</Button>
+              <Button variant="success" className="pay-points" disabled={!this.props.getCartTotalPoints()} onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</Button> 
             </Col>
             <Col></Col>
           </Row>
