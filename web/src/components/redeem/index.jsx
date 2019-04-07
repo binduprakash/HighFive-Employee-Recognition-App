@@ -6,6 +6,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 import { withCookies } from 'react-cookie';
 import API from '../../api';
+import HighFiveAlert from '../HighFiveAlert';
 
 require('../../styles/navbar.css')
 
@@ -16,7 +17,9 @@ class Redeem extends React.Component {
     super(props);
     this.state = {
       cart: [],
-      redeemItems: []
+      redeemItems: [],
+      showAlert:false,
+      closeAlert:null,
     }
   }
   componentDidMount(){
@@ -49,7 +52,7 @@ class Redeem extends React.Component {
       alert ("You don't have sufficient points to redeem this card");
     } else {
       cart.push(redeemItemId.toString());
-      this.setState({cart});
+      this.setState({cart, showAlert:true});
       const { cookies } = this.props;
       cookies.set('cart', cart.join(','));
     }
@@ -92,6 +95,10 @@ class Redeem extends React.Component {
     return totalPoints;
   }
 
+  closeAlertModel = () => {
+    this.setState({showAlert:false});
+  }
+
   render() {
     const childProps = {
       addToCart: this.addToCart,
@@ -105,6 +112,7 @@ class Redeem extends React.Component {
     }
     return (
       <div>
+        <HighFiveAlert show={this.state.showAlert} closeAlert={this.closeAlertModel} message='Woohoo, you have added to Cart!'/>
         <Switch>
           <AppliedRoute path='/redeem/cart' component={RedeemCart} props={childProps}/>
           <AppliedRoute path='/redeem/review' component={RedeemReview} props={childProps}/>
