@@ -128,7 +128,8 @@ class Redeem extends React.Component {
       redeemItems: this.state.redeemItems,
       employeeId: this.props.employeeId,
       getItemAndQuantityFromCart: this.getItemAndQuantityFromCart,
-      getCartTotalPoints: this.getCartTotalPoints
+      getCartTotalPoints: this.getCartTotalPoints,
+      refreshEmployeesAndRewards: this.props.refreshEmployeesAndRewards,
     }
     return (
       <div>

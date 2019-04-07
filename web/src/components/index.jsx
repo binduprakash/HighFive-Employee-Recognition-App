@@ -214,6 +214,7 @@ class App extends Component {
       department: this.state.department,
       isManager: this.state.isManager,
       setCurrentPage: this.setCurrentPage,
+      refreshEmployeesAndRewards: this.getEmployeesAndRewards,
     };
     return (
       !this.state.isAuthenticating &&
