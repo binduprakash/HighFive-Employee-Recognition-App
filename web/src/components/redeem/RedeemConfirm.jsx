@@ -23,7 +23,7 @@ class RecentRewards extends Component {
                     <h5>Order has been placed successfully!</h5>
                     <p>Please check your email inbox to know further details. You have {this.props.pointsAvailable} points remaining.</p>
                     {
-                      this.props.pointsAvailable &&
+                      this.props.pointsAvailable > 0 &&
                       <Button variant="secondary" onClick={this.goBackToRedeemCart}>Continue Redeeming</Button>
                     }
                   </td>

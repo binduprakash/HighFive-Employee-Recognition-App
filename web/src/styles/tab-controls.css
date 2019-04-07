@@ -8,6 +8,7 @@
 .TabControls ul li {
     background: #ececec;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .TabControls ul li a {

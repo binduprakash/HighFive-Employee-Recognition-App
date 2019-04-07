@@ -22,7 +22,7 @@ class HighFiveAlert extends React.Component {
             <Modal.Body>{this.props.message}</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={this.handleClose}>
-                Close
+                Ok
               </Button>
               {this.props.showPrimary && 
                 <Button variant="primary" onClick={this.props.handlePrimaryClick}>

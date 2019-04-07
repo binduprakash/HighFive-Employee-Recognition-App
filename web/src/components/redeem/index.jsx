@@ -65,8 +65,6 @@ class Redeem extends React.Component {
         this.setState({
           showAlert:true,
           alertMessage: 'Gift Card added to your Cart!',
-          showPrimary: true,
-          primaryText: 'Go to My Cart'
         });
       }
       const { cookies } = this.props;
@@ -138,9 +136,6 @@ class Redeem extends React.Component {
             show={this.state.showAlert}
             closeAlert={this.closeAlertModel} 
             message={this.state.alertMessage}
-            showPrimary={this.state.showPrimary}
-            primaryText={this.state.primaryText}
-            handlePrimaryClick={this.handlePrimarClick}
         />
         <Switch>
           <AppliedRoute path='/redeem/cart' component={RedeemCart} props={childProps}/>
