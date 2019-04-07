@@ -28,8 +28,8 @@ class Redeem extends React.Component {
       this.props.history.push("/login");
     } else {
       const { cookies } = this.props;
-      if (cookies.get('cart')){
-        this.setState({ cart: cookies.get('cart').split(',')});
+      if (cookies.get('cart', {path: "/"})){
+        this.setState({ cart: cookies.get('cart', {path: "/"}).split(',')});
       }
       API.get('redeem_items')
       .then(res => {
@@ -54,7 +54,7 @@ class Redeem extends React.Component {
       cart.push(redeemItemId.toString());
       this.setState({cart, showAlert:true});
       const { cookies } = this.props;
-      cookies.set('cart', cart.join(','));
+      cookies.set('cart', cart.join(','), {path: "/"});
     }
   }
   removeFromCart = redeemItemId => {
@@ -62,12 +62,12 @@ class Redeem extends React.Component {
     cart.splice(cart.indexOf(redeemItemId.toString()), 1);
     this.setState({cart});
     const { cookies } = this.props;
-    cookies.set('cart', cart.join(','));
+    cookies.set('cart', cart.join(','), {path: "/"});
   }
   clearCart = () => {
     this.setState({cart: []});
     const { cookies } = this.props;
-    cookies.set('cart', '');
+    cookies.set('cart', '', {path: "/"});
   }
 
   getItemAndQuantityFromCart = () => {

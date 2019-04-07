@@ -198,7 +198,7 @@ class App extends Component {
     const { cookies } = this.props;
     this.userHasAuthenticated(false, null, null, {});
     cookies.remove('cart');
-    cookies.set('isAuthenticated', false);
+    cookies.set('isAuthenticated', false, {path: "/"});
     cookies.remove('employeeId', '');
     cookies.remove('imgUrl', '');
     cookies.remove('profile', '');

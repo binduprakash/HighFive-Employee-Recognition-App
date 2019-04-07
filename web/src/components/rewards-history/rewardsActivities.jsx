@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router';
 
-import { Link } from 'react-router-dom';
+import { Link, Switch, Redirect } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 
 import ReceivedHistory from './received-history.jsx'
@@ -40,9 +40,12 @@ class RewardsActivities extends React.Component {
                     </ul>
                 </div>
                 <div className="Sidebar-Content">
-                    <AppliedRoute path='/rewards_activities/received' component={ReceivedHistory} props={{rewards: received}}/>
-                    <AppliedRoute path='/rewards_activities/sent' component={SentHistory} props={{rewards: sent}}/>
-                    <AppliedRoute path='/rewards_activities/approvals_rejections' component={ApprovalsRejectionsHistory} props={{rewards: approvals}}/>
+                    <Switch>
+                        <AppliedRoute path='/rewards_activities/received' component={ReceivedHistory} props={{rewards: received}}/>
+                        <AppliedRoute path='/rewards_activities/sent' component={SentHistory} props={{rewards: sent}}/>
+                        <AppliedRoute path='/rewards_activities/approvals_rejections' component={ApprovalsRejectionsHistory} props={{rewards: approvals}}/>
+                        <Redirect from="/rewards_activities" to="/rewards_activities/received"/>
+                    </Switch>
                 </div>
             </div>
         )
