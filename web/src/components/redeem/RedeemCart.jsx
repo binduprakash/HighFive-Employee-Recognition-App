@@ -25,7 +25,7 @@ class RedeemCart extends Component {
         <main>
           <section className="products-index">
             <Row className="cart-message-row">
-              <Col className="cart-message">Add Gift Cards to your cart to redeem your available points.</Col>
+              <Col></Col>
               <Col>
                 <a href="#" className="myCart" onClick={this.proceedToCart}>My Cart({this.props.cart.length})</a>
               </Col>

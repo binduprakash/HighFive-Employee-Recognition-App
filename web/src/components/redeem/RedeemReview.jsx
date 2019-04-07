@@ -73,11 +73,15 @@ class RedeemReview extends Component {
                   {this.getCartRows()}
                 </tbody>
               </Table> : 
-              <div>
-                <h4>Your cart is empty</h4>
-                <br></br>
-                <button className="continue-redeem" onClick={this.goBackToRedeemCart}>Continue Redeeming</button> 
-              </div> 
+              <Table bordered>
+                <tbody>
+                  <tr>
+                    <td className="empty-cart-container">
+                      Your cart is empty.
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             }
             </Col>
             <Col></Col>

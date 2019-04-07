@@ -13,4 +13,14 @@
 
 .add-to-cart-button {
     min-width: 200;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.empty-cart-container {
+    text-align: center
+}
+
+.order-success{
+    margin-top: 30px;
 }
