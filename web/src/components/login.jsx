@@ -42,6 +42,7 @@ export default class Login extends Component {
                         lastName: response.data['last_name'],
                         title: response.data['title'],
                         department:  response.data['department'],
+                        isManager: response.data['is_manager']
                     }
                 );
                 this.props.history.push("/");

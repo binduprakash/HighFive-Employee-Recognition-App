@@ -30,14 +30,18 @@ class Overview extends Component {
                   <li className={location.pathname === '/overview/recent-rewards' ? 'active': ''}>
                       <Link to={`/overview/recent-rewards`}>Recent Rewards</Link>
                   </li>
+                  {this.props.isManager &&
                   <li className={location.pathname === '/overview/approval' ? 'active': ''}>
-                      <Link to={`/overview/approval`}>Approvals</Link>
+                    <Link to={`/overview/approval`}>Approvals</Link>
                   </li>
+                  }
               </ul>
             </div>
             <div className="Sidebar-Content">
                 <AppliedRoute path='/overview/recent-rewards' component={RecentRewards} props={{rewards: approved, employeeId}}/>
+                {this.props.isManager &&
                 <AppliedRoute path='/overview/approval' component={Approvals} props={{rewards: pending, approve_request, reject_request}}/>
+                }
             </div>
         </div>
       </div>

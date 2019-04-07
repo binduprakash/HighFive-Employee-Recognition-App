@@ -25,6 +25,7 @@ class App extends Component {
       rewards: [],
       levels: [],
       currentPage: null,
+      isManager: false,
     };
     this.approve_request = this.approve_request.bind(this);
     this.reject_request = this.reject_request.bind(this);
@@ -69,7 +70,13 @@ class App extends Component {
       })
     })
   }
-  userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { firstName = '', lastName = '', title = '', department = '' }) => {
+  userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { 
+    firstName = '',
+    lastName = '',
+    title = '',
+    department = '',
+    isManager = false,
+  }) => {
     const { cookies } = this.props;
     cookies.set("isAuthenticated", authenticated, {path: "/"});
     if(authenticated) {
@@ -80,7 +87,8 @@ class App extends Component {
         lastName,
         title,
         department,
-        imgUrl
+        imgUrl,
+        isManager
       }, {path: "/"});
       
       this.setState({ 
@@ -90,7 +98,8 @@ class App extends Component {
         firstName,
         lastName,
         title,
-        department
+        department,
+        isManager
       });
 
       const self = this;
@@ -203,6 +212,7 @@ class App extends Component {
       lastName: this.state.lastName,
       title: this.state.title,
       department: this.state.department,
+      isManager: this.state.isManager,
       setCurrentPage: this.setCurrentPage,
     };
     return (
