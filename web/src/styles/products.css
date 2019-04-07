@@ -19,10 +19,17 @@ body {
   justify-content: space-around;
 } 
 
-.myCart {
+a.myCart {
   display: block;
   float: right;
   margin-right: 15px;
+  text-decoration: none;
+  color: #34495e;
+  font-weight: bold;
+}
+a.myCart:hover {
+  text-decoration: none;
+  color:orange;
 }
 .cart-message {
   text-align: right;
@@ -31,7 +38,7 @@ body {
   margin-bottom:0px;
 }
 .products-index {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .product {
     flex:      1;

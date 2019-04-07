@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Switch, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 
@@ -38,10 +38,13 @@ class Overview extends Component {
               </ul>
             </div>
             <div className="Sidebar-Content">
+              <Switch>
                 <AppliedRoute path='/overview/recent-rewards' component={RecentRewards} props={{rewards: approved, employeeId}}/>
                 {this.props.isManager &&
                 <AppliedRoute path='/overview/approval' component={Approvals} props={{rewards: pending, approve_request, reject_request}}/>
                 }
+                <Redirect from="/overview" to="/overview/recent-rewards"/>
+              </Switch>
             </div>
         </div>
       </div>

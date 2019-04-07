@@ -35,7 +35,7 @@ class Api::V1::OrdersController < ApplicationController
             email: employee.email,
             total_points: total_points
         )
-        if order.save
+        if total_points <= employee.available_points && order.save
             cartHash.each do |redeemItemIdStr, quantity|
                 redeemItem = RedeemItem.find(redeemItemIdStr.to_i)
                 OrderItem.create(

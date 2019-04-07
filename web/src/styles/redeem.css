@@ -24,3 +24,20 @@
 .order-success{
     margin-top: 30px;
 }
+
+.redeem-review-container {
+    margin-top: 30px;
+}
+
+.increase-decrease-col { 
+    text-align: center;
+}
+
+.total-point-col { 
+    text-align: right;
+    font-weight: bold;
+}
+
+.col-center {
+    text-align: center;
+}
