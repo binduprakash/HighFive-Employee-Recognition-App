@@ -199,7 +199,7 @@ class App extends Component {
         pending: this.state.rewards.filter(rew => rew.status === 'pending' && rew.approver_employee_id === parseInt(employeeId)),
         approvals: this.state.rewards.filter(rew => rew.approver_employee_id === parseInt(employeeId)),
         sent: this.state.rewards.filter(rew => rew.from_employee_id === parseInt(employeeId)),
-        received: this.state.rewards.filter(rew => rew.to_employee_id === parseInt(employeeId)),
+        received: this.state.rewards.filter(rew => rew.to_employee_id === parseInt(employeeId) && rew.status === 'approved'),
       },
       isAuthenticated: this.state.isAuthenticated,
       userHasAuthenticated: this.userHasAuthenticated,
