@@ -11,7 +11,7 @@ class SentHistory extends Component {
         <table className="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Receiver</th>
+                <th>Sent to:</th>
                 <th>Points</th>
                 <th>Status</th>
                 <th>Message</th>
@@ -21,7 +21,8 @@ class SentHistory extends Component {
         {rewards.map((reward, index) => <PointsSent 
                 key= {index} 
                 id= {reward.id}
-                to= {reward.from}
+                to= {reward.to}
+                status= {reward.status}
                 level= {reward.level} 
                 rewardMsg= {reward.reward_message}
                 date= {reward.created_at}
