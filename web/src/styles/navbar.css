@@ -32,6 +32,9 @@ a {
 
 .main-nav {
 	margin-top: 5px;
+	font-family: "Montserrat";
+	font-weight: bold;
+	position: relative;
 
 }
 .logo a,
@@ -54,8 +57,15 @@ a {
 
 #logo_high_five{
 	text-decoration: none;
+	margin-left: 10px;
 	color:black;
-	font-size: 40px;
+	font-size: 50px;
+	font-family: "Baloo Chettan";
+}
+
+#logo {
+	padding-left: 20px;
+	
 }
 #logo_high_five:hover{
 	color:white;
@@ -76,9 +86,9 @@ a {
 	padding-bottom: .25em;
 	border: 1px solid #a2a2a2;
 	background-color: #f4f4f4;
-	-webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
   display: flex;
   justify-content: space-around;
 }
