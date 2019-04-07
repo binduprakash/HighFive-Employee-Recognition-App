@@ -37,7 +37,7 @@ class RecognizeSelectLevel extends React.Component {
     }
     render() {
         let pointLevelOptions = this.props.pointsLevels.map((pointLevel)=> {
-            return <option value={pointLevel.id}>{pointLevel.level_name}</option>;
+            return <option value={pointLevel.id}>{pointLevel.level_name} - {pointLevel.points} Points</option>;
         });
         pointLevelOptions = [<option></option>].concat(pointLevelOptions);
         return (

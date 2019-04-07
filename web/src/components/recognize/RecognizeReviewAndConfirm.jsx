@@ -8,6 +8,9 @@ class RecognizeReviewAndConfirm extends React.Component {
     onConfirmAndSubmitClick = () => {
         this.props.submitRewards();
     }
+    goBackToRecognize = () => {
+        this.props.history.push('/recognize/select_recipient');
+    }
     render() {
         console.log(this.props);
         const recipient = this.props.employees.find((employee)=>{
@@ -25,8 +28,8 @@ class RecognizeReviewAndConfirm extends React.Component {
             <Container className="step-container">
                 {this.props.submissionSuccessful == true ? 
                     <div>
-                        <h2>Submission successful</h2>
-                        <Button variant="success" size="lg" onClick={this.props.restartSubmission}>
+                        <h5>Submission successful</h5>
+                        <Button variant="success" size="lg" onClick={this.goBackToRecognize}>
                             Recognize another employee
                         </Button>
                     </div>
