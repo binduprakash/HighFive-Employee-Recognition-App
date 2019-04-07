@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import API from '../../api';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Table, tbody } from 'react-bootstrap';
 
 require('../../styles/redeem.css')
 
@@ -11,7 +11,7 @@ class RedeemReview extends Component {
       this.props.removeFromCart(event.target.id);
     } 
     const handleIncreaseQuantityButton = event => {
-      this.props.addToCart(event.target.id);
+      this.props.addToCart(event.target.id, false);
     } 
     const cartQuantity = this.props.getItemAndQuantityFromCart();
     let tableRows = this.props.redeemItems.map(function(redeemItem){
@@ -21,8 +21,10 @@ class RedeemReview extends Component {
         return (
           <tr>
             <td><img alt="Gift Card" src= {`http://localhost:3000/${redeemItem.image_url}`}  style={{height: "40px", width: "60px;"}}/></td>
-            <td>{redeemItem.name}<br/>{redeemItem.points} Points</td>
-            <td>
+            <td width="50%">
+              <h5>{redeemItem.name}</h5>{redeemItem.points} Points | $50
+            </td>
+            <td width="30%">
             <button id={redeemItem.id} className="cartButton" onClick={handleReduceQuantityButton}>-</button>
             {quantity}
             <button id={redeemItem.id} className="cartButton" onClick={handleIncreaseQuantityButton}>+</button>
@@ -63,12 +65,14 @@ class RedeemReview extends Component {
         <section className="products-index">
           <Row>
             <Col></Col>
-            <Col>
+            <Col lg={6}>
             {
               this.props.getCartTotalPoints() ?
-              <table>
-                {this.getCartRows()}
-              </table> : 
+              <Table striped bordered hover>
+                <tbody>
+                  {this.getCartRows()}
+                </tbody>
+              </Table> : 
               <div>
                 <h4>Your cart is empty</h4>
                 <br></br>
