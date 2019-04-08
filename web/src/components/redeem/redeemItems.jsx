@@ -13,7 +13,7 @@ class RedeemItems extends React.Component {
       <div>
         <article className="product">
           <header>
-              <img alt="Gift Card" src= {`http://localhost:3000/${this.props.image}`}  style={{height: "200px", width: "350px;"}}/>
+              <img alt="Gift Card" src= {`http://localhost:3000/${this.props.image}`}  style={{height: "200px", width: "350px"}}/>
               <h5 className="product-heading"> {this.props.name} </h5>
           </header>
           <Row>

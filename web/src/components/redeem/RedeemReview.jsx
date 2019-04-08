@@ -28,7 +28,7 @@ class RedeemReview extends Component {
         
         return (
           <tr>
-            <td><img alt="Gift Card" src= {`http://localhost:3000/${redeemItem.image_url}`}  style={{height: "40px", width: "60px;"}}/></td>
+            <td><img alt="Gift Card" src= {`http://localhost:3000/${redeemItem.image_url}`}  style={{height: "40px", width: "60px"}}/></td>
             <td width="50%">
               <h5>{redeemItem.name}</h5>{redeemItem.points} Points | $50
             </td>
@@ -87,7 +87,7 @@ class RedeemReview extends Component {
                 <tbody>
                   <tr>
                     <td className="empty-cart-container">
-                      <img alt="Empty-Card" src= {`http://localhost:3000/empty-cart.png`}  style={{height: "200px", width: "160px;"}}/>
+                      <img alt="Empty-Card" src= {`http://localhost:3000/empty-cart.png`}  style={{height: "200px", width: "160px"}}/>
                       <br/>
                       <h5>Your cart is empty.</h5>
                     </td>

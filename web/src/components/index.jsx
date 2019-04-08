@@ -84,9 +84,6 @@ class App extends Component {
   }
 
 
-  
- 
-
   userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { 
     firstName = '',
     lastName = '',
