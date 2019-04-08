@@ -6,6 +6,7 @@ import { Redirect, Switch } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 import { withCookies } from 'react-cookie';
 import API from '../../api';
+import HighFiveAlert from '../HighFiveAlert';
 
 require('../../styles/navbar.css')
 
@@ -16,7 +17,12 @@ class Redeem extends React.Component {
     super(props);
     this.state = {
       cart: [],
-      redeemItems: []
+      redeemItems: [],
+      showAlert:false,
+      closeAlert:null,
+      alertMessage:null,
+      showPrimary: false,
+      primaryText: null
     }
   }
   componentDidMount(){
@@ -24,9 +30,10 @@ class Redeem extends React.Component {
       alert('Login In');
       this.props.history.push("/login");
     } else {
+      this.props.setCurrentPage('redeem');
       const { cookies } = this.props;
-      if (cookies.get('cart')){
-        this.setState({ cart: cookies.get('cart').split(',')});
+      if (cookies.get('cart', {path: "/"})){
+        this.setState({ cart: cookies.get('cart', {path: "/"}).split(',')});
       }
       API.get('redeem_items')
       .then(res => {
@@ -38,7 +45,7 @@ class Redeem extends React.Component {
     }
   }
     
-  addToCart = redeemItemId => {
+  addToCart = (redeemItemId, showAlert=true) => {
     let cart = this.state.cart;
     const redeemItem = this.state.redeemItems.find((value) => {
       if(value.id == redeemItemId){
@@ -46,12 +53,22 @@ class Redeem extends React.Component {
       }
     });
     if((this.getCartTotalPoints() + redeemItem.points) > this.props.pointsAvailable){
-      alert ("You don't have sufficient points to redeem this card");
+      this.setState({
+        showAlert:true,
+        alertMessage: "You don't have sufficient points to redeem this card",
+        showPrimary:false
+      });
     } else {
       cart.push(redeemItemId.toString());
       this.setState({cart});
+      if(showAlert){
+        this.setState({
+          showAlert:true,
+          alertMessage: 'Gift Card added to your Cart!',
+        });
+      }
       const { cookies } = this.props;
-      cookies.set('cart', cart.join(','));
+      cookies.set('cart', cart.join(','), {path: "/"});
     }
   }
   removeFromCart = redeemItemId => {
@@ -59,12 +76,12 @@ class Redeem extends React.Component {
     cart.splice(cart.indexOf(redeemItemId.toString()), 1);
     this.setState({cart});
     const { cookies } = this.props;
-    cookies.set('cart', cart.join(','));
+    cookies.set('cart', cart.join(','), {path: "/"});
   }
   clearCart = () => {
     this.setState({cart: []});
     const { cookies } = this.props;
-    cookies.set('cart', '');
+    cookies.set('cart', '', {path: "/"});
   }
 
   getItemAndQuantityFromCart = () => {
@@ -92,6 +109,14 @@ class Redeem extends React.Component {
     return totalPoints;
   }
 
+  closeAlertModel = () => {
+    this.setState({showAlert:false});
+  }
+  handlePrimarClick = () => {
+    this.props.history.push("/redeem/review");
+    this.closeAlertModel();
+  }
+
   render() {
     const childProps = {
       addToCart: this.addToCart,
@@ -101,10 +126,17 @@ class Redeem extends React.Component {
       redeemItems: this.state.redeemItems,
       employeeId: this.props.employeeId,
       getItemAndQuantityFromCart: this.getItemAndQuantityFromCart,
-      getCartTotalPoints: this.getCartTotalPoints
+      getCartTotalPoints: this.getCartTotalPoints,
+      refreshEmployeesAndRewards: this.props.refreshEmployeesAndRewards,
+      pointsAvailable: this.props.pointsAvailable
     }
     return (
       <div>
+        <HighFiveAlert 
+            show={this.state.showAlert}
+            closeAlert={this.closeAlertModel} 
+            message={this.state.alertMessage}
+        />
         <Switch>
           <AppliedRoute path='/redeem/cart' component={RedeemCart} props={childProps}/>
           <AppliedRoute path='/redeem/review' component={RedeemReview} props={childProps}/>

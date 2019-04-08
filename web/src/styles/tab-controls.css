@@ -8,6 +8,7 @@
 .TabControls ul li {
     background: #ececec;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .TabControls ul li a {
@@ -20,7 +21,7 @@
 }
 
 .TabControls ul li.active {
-    background: white;
+    background:#8FBC94;
 }
 
 .TabControls ul li.active a {

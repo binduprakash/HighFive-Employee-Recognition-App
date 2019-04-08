@@ -9,6 +9,7 @@ class Api::V1::SessionsController < ApplicationController
                 'last_name': employee.last_name,
                 'title': employee.title,
                 'department': employee.department,
+                'is_manager': employee.subordinates.count > 0
             }
         else
             render json: {'isAuthenticated': false}

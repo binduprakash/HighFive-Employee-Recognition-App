@@ -1,8 +1,12 @@
+.Overview {
+    padding-top: 30px;
+}
+
 .Sidebar {
     float: right;
-    background-color: rgb(177, 199, 192);
+    background-color: lightgrey;
     margin-right: 20px;
-    height: 600px;
+    min-height: 400px;
     width: 450px;
     display: flex;
     border-radius: 10px 10px 10px 10px;

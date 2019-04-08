@@ -12,7 +12,7 @@ class Overview extends Component {
           <br/>
           Hi {this.props.firstName}!
           <br/>
-          Wallet: {this.props.pointsAvailable} pts
+          Wallet: {this.props.pointsAvailable} points
         </p>
 
       )
@@ -24,8 +24,8 @@ class Overview extends Component {
       <div className="header">
         <h1 className="logo">
           <a href="/overview" id="logo_high_five">
-            <img alt="Gift Card" src= {`http://localhost:3000/high-five-logo.png`} style={{height: "70px"}}/> 
-            <span>High Five</span>
+            <img alt="High 5" src= {`http://localhost:3000/high-five-logo.png`} style={{height: "70px"}}/> 
+            <span id="logo">High Five</span>
           </a>
         </h1>
         {this.handlePoints()}

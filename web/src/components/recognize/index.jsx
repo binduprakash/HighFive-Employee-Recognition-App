@@ -2,7 +2,6 @@ import React from 'react'
 import API from '../../api';
 import { Container, Col, Row, Form } from 'react-bootstrap'
 import { Redirect, Switch } from 'react-router-dom';
-
 import AppliedRoute from '../AppliedRoute';
 import RecognizeSelectRecipient from './RecognizeSelectRecipient';
 import RecognizeSelectLevel from './RecognizeSelectLevel';
@@ -31,6 +30,7 @@ class Recognize extends React.Component {
       alert('Login In');
       this.props.history.push("/login");
     } else {
+      this.props.setCurrentPage('recognize');
       API.get('employees').then(res => {
           const employees = res.data;
           this.setState({ employees });
@@ -137,7 +137,7 @@ class Recognize extends React.Component {
               <Col className="review-confirm-step">Review &amp;<br/>Confirm</Col>
             </Row>
           </Container>
-            <Form>
+            <Form className = "form-area">
             <Switch>
               <AppliedRoute path='/recognize/select_recepient' component={RecognizeSelectRecipient} props={childProps}/>
               <AppliedRoute path='/recognize/select_level' component={RecognizeSelectLevel} props={childProps}/>

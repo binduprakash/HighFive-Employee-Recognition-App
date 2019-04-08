@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Switch, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import AppliedRoute from '../AppliedRoute';
 
@@ -16,6 +16,7 @@ class Overview extends Component {
       alert('Login In');
       this.props.history.push("/login");
     }
+    this.props.setCurrentPage('overview');
   }
   render() {
     const { location, rewards: { pending, approved }, approve_request, reject_request, employeeId, pointsAvailable, imgUrl, firstName, lastName, title, department } = this.props;
@@ -29,14 +30,21 @@ class Overview extends Component {
                   <li className={location.pathname === '/overview/recent-rewards' ? 'active': ''}>
                       <Link to={`/overview/recent-rewards`}>Recent Rewards</Link>
                   </li>
+                  {this.props.isManager &&
                   <li className={location.pathname === '/overview/approval' ? 'active': ''}>
-                      <Link to={`/overview/approval`}>Approvals</Link>
+                    <Link to={`/overview/approval`}>Approvals</Link>
                   </li>
+                  }
               </ul>
             </div>
             <div className="Sidebar-Content">
+              <Switch>
                 <AppliedRoute path='/overview/recent-rewards' component={RecentRewards} props={{rewards: approved, employeeId}}/>
+                {this.props.isManager &&
                 <AppliedRoute path='/overview/approval' component={Approvals} props={{rewards: pending, approve_request, reject_request}}/>
+                }
+                <Redirect from="/overview" to="/overview/recent-rewards"/>
+              </Switch>
             </div>
         </div>
       </div>

@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import API from '../../api';
+import { Container, Row, Col, Button, Table } from 'react-bootstrap';
 
 require('../../styles/redeem.css')
 
 class RedeemReview extends Component {
+  constructor(props, context) {
+    super(props, context);
 
+    this.payByPointsAndSubmit = this.payByPointsAndSubmit.bind(this);
+
+    this.state = {
+      isLoading: false,
+    };
+  }
   getCartRows = () => {
     const handleReduceQuantityButton = event => {
       this.props.removeFromCart(event.target.id);
     } 
     const handleIncreaseQuantityButton = event => {
-      this.props.addToCart(event.target.id);
+      this.props.addToCart(event.target.id, false);
     } 
     const cartQuantity = this.props.getItemAndQuantityFromCart();
     let tableRows = this.props.redeemItems.map(function(redeemItem){
@@ -20,8 +29,10 @@ class RedeemReview extends Component {
         return (
           <tr>
             <td><img alt="Gift Card" src= {`http://localhost:3000/${redeemItem.image_url}`}  style={{height: "40px", width: "60px;"}}/></td>
-            <td>{redeemItem.name}<br/>{redeemItem.points} Points</td>
-            <td>
+            <td width="50%">
+              <h5>{redeemItem.name}</h5>{redeemItem.points} Points | $50
+            </td>
+            <td className="increase-decrease-col" width="30%">
             <button id={redeemItem.id} className="cartButton" onClick={handleReduceQuantityButton}>-</button>
             {quantity}
             <button id={redeemItem.id} className="cartButton" onClick={handleIncreaseQuantityButton}>+</button>
@@ -32,57 +43,74 @@ class RedeemReview extends Component {
     });
     tableRows.push((
       <tr>
-        <td colspan="2">Total Points</td>
-        <td>{this.props.getCartTotalPoints()}</td>
+        <td class="total-point-col" colspan="2">Total Points</td>
+        <td className="col-center">{this.props.getCartTotalPoints()}</td>
       </tr>
     ))
     return tableRows;
   }
   payByPointsAndSubmit = async () => {
+    this.setState({isLoading: true});
     const response =  await API.post('orders', {
       employee_id: this.props.employeeId,
       cart_details: JSON.stringify(this.props.getItemAndQuantityFromCart())
     });
+    this.setState({isLoading: false});
     if (response.data['status'] === 'success'){
-      alert('Order has been placed successfully!')
       this.props.clearCart();
+      this.props.refreshEmployeesAndRewards(true, this.props.employeeId);
       this.props.history.push("/redeem/confirm");
     } else {
-      alert('Some issue while saving order, please try again later');
+      alert('Some issue while saving the order, please try again later');
     }
   }
 
   goBackToRedeemCart = () => {
     this.props.history.push("/redeem/cart");
   }
-
   render() {
+    const { isLoading } = this.state;
     return (
-      <div className="container">
-      <h1>Review Order</h1>
-      <main>
+      <Container>
         <section className="products-index">
-          <div>
-          <header className="page-header">
-            <h1>Products</h1>
-          </header>
-          <div className="products">
-          {this.props.getCartTotalPoints() ?
-          
-            <table>
-              {this.getCartRows()}
-            </table> : 
-            <div>
-              <h4>Your cart is empty</h4>
-              <br></br>
-              <button className="continue-redeem" onClick={this.goBackToRedeemCart}>Continue Redeeming</button> 
-            </div> }
-          </div>
-          <button className="pay-points" disabled={!this.props.getCartTotalPoints()} onClick={this.payByPointsAndSubmit}>Pay by Points and Submit</button> 
-          </div>
+          <Row className="redeem-review-container">
+            <Col></Col>
+            <Col lg={6}>
+            {
+              this.props.getCartTotalPoints() ?
+              <Table striped bordered hover>
+                <tbody>
+                  {this.getCartRows()}
+                </tbody>
+              </Table> : 
+              <Table bordered>
+                <tbody>
+                  <tr>
+                    <td className="empty-cart-container">
+                      <img alt="Empty-Card" src= {`http://localhost:3000/empty-cart.png`}  style={{height: "200px", width: "160px;"}}/>
+                      <br/>
+                      <h5>Your cart is empty.</h5>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            }
+            </Col>
+            <Col></Col>
+          </Row>
+          <Row>
+            <Col></Col>
+            <Col lg={6} className="col-center">
+              <Button variant="danger" onClick={this.props.clearCart}>Clear Cart</Button>
+              <Button variant="secondary" className="pay-points" onClick={this.goBackToRedeemCart}>Go Back</Button>
+              <Button variant="success" className="pay-points" disabled={isLoading || !this.props.getCartTotalPoints()} onClick={!isLoading ? this.payByPointsAndSubmit : null}>
+                {isLoading ? 'Paying...' : 'Pay by Points and Submit'}
+              </Button> 
+            </Col>
+            <Col></Col>
+          </Row>
         </section>
-      </main>
-    </div>
+    </Container>
     );
   }
 }

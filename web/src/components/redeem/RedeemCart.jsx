@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RedeemItems from "./redeemItems.jsx"
-
+import {Row, Col, Button} from 'react-bootstrap';
 require('../../styles/products.css')
 
 class RedeemCart extends Component {
@@ -22,19 +22,27 @@ class RedeemCart extends Component {
     ))
     return (
         <div className="container">
-        <h1>Redemption Page</h1>
         <main>
           <section className="products-index">
-            <div>
-            <header className="page-header">
-              <h1>Products</h1>
-              <a href="#" onClick={this.proceedToCart}><span className="myCart">My Cart({this.props.cart.length})</span></a>
-            </header>
+            <Row className="cart-message-row">
+              <Col></Col>
+              <Col>
+                <a href="#" className="myCart" onClick={this.proceedToCart}>
+                  <img alt="Empty-Card" src= {`http://localhost:3000/cart.ico`}  style={{height: "30px", width: "40px;"}}/>
+                  My Cart({this.props.cart.length})
+                </a>
+              </Col>
+              </Row>
+            <Row>
             <div className="products">
               {productListing}
             </div>
-            <button onClick={this.proceedToCart}>Proceed To Checkout</button>
-            </div>
+            </Row>
+            <Row>
+            <Col></Col>
+            <Col><Button variant='success' className="add-to-cart-button" onClick={this.proceedToCart} block>Proceed To Checkout</Button></Col>
+            <Col></Col>
+            </Row>
           </section>
         </main>
       </div>

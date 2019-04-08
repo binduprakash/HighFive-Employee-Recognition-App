@@ -2,6 +2,7 @@ require 'net/http'
 require 'uri'
 
 class Api::V1::RewardsController < ApplicationController
+    
     before_action :set_reward, only: [:show, :update]
 
     # GET /rewards
@@ -17,7 +18,36 @@ class Api::V1::RewardsController < ApplicationController
 
     # PATCH/PUT /rewards/1
     def update
+        oldStatus = @reward.status
+
         if @reward.update(reward_params)
+            newStatus = @reward.status
+            if oldStatus == 'pending' && newStatus == 'approved'
+                
+                #defining params for Slack Message to receiving user to post if moving from pending to approved
+                to_employee = reward_params[:to_employee_id]
+                full_name_to_employee = full_name(to_employee)
+        
+                from_employee = reward_params[:from_employee_id]
+                full_name_from_employee = full_name(from_employee)
+
+                manager_employee = reward_params[:approver_employee_id]
+
+                points_msg = reward_params[:level_id]
+                points_text = points_name(reward_params[:level_id])
+
+                rewards_msg = reward_params[:reward_message]
+                
+                channel_ID = slack_id(to_employee)
+
+                #post to slack
+                ReceivingUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID).deliver
+                
+                employee = Employee.find(@reward.to_employee_id)
+                level = PointsLevel.find(@reward.level_id)
+                employee.available_points += level.points
+                employee.save
+            end
             render json: @reward
         else
             render json: @reward.errors, status: :unprocessable_entity
@@ -42,13 +72,11 @@ class Api::V1::RewardsController < ApplicationController
 
         rewards_msg = reward_params[:reward_message]
         
-        channel_ID = slack_id(to_employee)
         channel_ID_Approver = slack_id(manager_employee)
 
-        # need to move Receiving User Slack to after approval route
-
         if @reward.save
-            ReceivingUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID).deliver
+            
+            #post to slack
             ApproverUserSlack.new.clicky_clicky(full_name_to_employee,points_text,rewards_msg,full_name_from_employee, channel_ID_Approver, reward_params[:approver_message]).deliver
             
             client = Employee.select("first_name", "last_name").find_by(:id => reward_params[:to_employee_id])
@@ -94,4 +122,5 @@ class Api::V1::RewardsController < ApplicationController
         level = PointsLevel.select("level_name", "points").find_by(:id => pointsId)
         toLevel = level.level_name + ": " + level.points.to_s + " points"
     end
+
 end
