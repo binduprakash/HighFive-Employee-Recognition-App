@@ -12,7 +12,7 @@ class RecentRewards extends Component {
         {
           rewards.length > 0 
             && 
-          rewards.map((reward, index) => <Reward key={index} id={reward.id} employeeId={employeeId} from={reward.from} to={reward.to} level={reward.level} reward_message={reward.reward_message} />) 
+          rewards.map((reward, index) => <Reward key={index} index={index} id={reward.id} employeeId={employeeId} from={reward.from} to={reward.to} level={reward.level} reward_message={reward.reward_message} />) 
         }
       </div>
     );
