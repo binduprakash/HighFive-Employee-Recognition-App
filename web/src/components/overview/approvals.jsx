@@ -8,8 +8,8 @@ class Approvals extends Component {
     console.log(this.props);
     return (
       <div className="Approvals">
-        <h3>Approvals Required</h3>
-        {rewards.map((reward, index) => <ActionableReward key={index} id={reward.id} from={reward.from} to={reward.to} level={reward.level} on_approve={approve_request} on_reject={reject_request} />)}
+        {
+          rewards.length > 0 && rewards.map((reward, index) => <ActionableReward key={index} id={reward.id} from={reward.from} to={reward.to} level={reward.level} on_approve={approve_request} on_reject={reject_request} />)}
       </div>
     );
   }

@@ -9,7 +9,11 @@ class RecentRewards extends Component {
     const { rewards, employeeId } = this.props;
     return (
       <div className="RecentRewards">
-        {rewards.map((reward, index) => <Reward key={index} id={reward.id} employeeId={employeeId} from={reward.from} to={reward.to} level={reward.level} reward_message={reward.reward_message} />)}
+        {
+          rewards.length > 0 
+            && 
+          rewards.map((reward, index) => <Reward key={index} id={reward.id} employeeId={employeeId} from={reward.from} to={reward.to} level={reward.level} reward_message={reward.reward_message} />) 
+        }
       </div>
     );
   }
