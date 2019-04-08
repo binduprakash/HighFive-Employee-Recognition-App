@@ -38,7 +38,8 @@ class App extends Component {
       this.userHasAuthenticated(false, null, null, {});
     }
     this.setState({ isAuthenticating: false });
-  }
+  }  
+  
   getEmployeesAndRewards = (authenticated, employeeId) => {
     API.get('employees').then(res => {
       const employees = res.data;
@@ -65,11 +66,27 @@ class App extends Component {
               level
             }
           });
+          // sort rewards latest date = > oldest date
+          let sortRewards=(a,b) => {
+            let comparison =0;
+            if (a.created_at > b.created_at) {
+              comparison = 1;
+            } else if (a.created_at < b.created_at) {
+              comparison = -1
+            }
+            return comparison * -1;
+          }
+          mappedRewards.sort(sortRewards)
           this.setState({ rewards: mappedRewards });
         })
       })
     })
   }
+
+
+  
+ 
+
   userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { 
     firstName = '',
     lastName = '',

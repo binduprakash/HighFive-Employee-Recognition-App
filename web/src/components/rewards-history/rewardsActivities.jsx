@@ -23,6 +23,7 @@ class RewardsActivities extends React.Component {
         this.props.setCurrentPage('rewards_activities');
     }
 
+
     render() {
         const { location, rewards: { approvals, sent, received } } = this.props;
         
