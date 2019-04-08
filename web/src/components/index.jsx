@@ -47,7 +47,7 @@ class App extends Component {
         employees
       };
 
-      let employeeObject = employees.find(x => x.id == employeeId)
+      let employeeObject = employees.find(x => x.id === employeeId)
       if (authenticated === true & employeeObject !== undefined) {
         newState.pointsAvailable = employeeObject.available_points;
       }
@@ -56,9 +56,9 @@ class App extends Component {
         API.get('rewards').then(res => {
           const rewards = res.data.sort((a, b) => a.id < b.id);
           const mappedRewards = rewards.map((reward) => {
-            const from = freshEmployees.find(e => e.id == reward.from_employee_id);
-            const to = freshEmployees.find(e => e.id == reward.to_employee_id);
-            const level = levels.find(l => l.id == reward.level_id);
+            const from = freshEmployees.find(e => e.id === reward.from_employee_id);
+            const to = freshEmployees.find(e => e.id === reward.to_employee_id);
+            const level = levels.find(l => l.id === reward.level_id);
             return {
               ...reward,
               to,
@@ -160,11 +160,11 @@ class App extends Component {
     }).then(res => {
       const updatedReward = res.data;
       const existingRewards = self.state.rewards;
-      const updationIndex = existingRewards.findIndex(rew => rew.id == id);
+      const updationIndex = existingRewards.findIndex(rew => rew.id === id);
       // build the from and to objects
-      const from = self.state.employees.find(e => e.id == updatedReward.from_employee_id);
-      const to = self.state.employees.find(e => e.id == updatedReward.to_employee_id);
-      const level = self.state.levels.find(l => l.id == updatedReward.level_id);
+      const from = self.state.employees.find(e => e.id === updatedReward.from_employee_id);
+      const to = self.state.employees.find(e => e.id === updatedReward.to_employee_id);
+      const level = self.state.levels.find(l => l.id === updatedReward.level_id);
       existingRewards[updationIndex] = {
         ...updatedReward,
         from,
@@ -179,14 +179,14 @@ class App extends Component {
 
   approve_request(id) {
     console.log(`approved ${id}`)
-    const approved_request = this.state.rewards.find(r => r.id == id);
+    const approved_request = this.state.rewards.find(r => r.id === id);
     approved_request.status = 'approved';
     this.update_request(approved_request);
   }
 
   reject_request(id) {
     console.log(`rejected ${id}`)
-    const rejected_request = this.state.rewards.find(r => r.id == id);
+    const rejected_request = this.state.rewards.find(r => r.id === id);
     rejected_request.status = 'rejected';
     this.update_request(rejected_request);
   }
