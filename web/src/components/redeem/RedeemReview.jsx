@@ -87,7 +87,7 @@ class RedeemReview extends Component {
                 <tbody>
                   <tr>
                     <td className="empty-cart-container">
-                      <img alt="Empty-Card" src= {`http://localhost:3000/empty-cart.png`}  style={{height: "200px", width: "160px"}}/>
+                      <img alt="Empty-Card" src= {`http://localhost:3000/empty-cart.png`}/>
                       <br/>
                       <h5>Your cart is empty.</h5>
                     </td>
