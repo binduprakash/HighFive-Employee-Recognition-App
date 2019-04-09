@@ -1,6 +1,6 @@
 
 
-#Slash Commands
+### Slash Commands
 
 Starting Point: 
     
