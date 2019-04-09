@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component, useState} from "react";
 import { BrowserRouter as Router, Link, withRouter } from 'react-router-dom';
 import Header from './common/header'
 import Routes from './Routes'
@@ -6,9 +6,9 @@ import { withCookies, Cookies } from 'react-cookie';
 import { compose } from 'recompose';
 import API from '../api';
 import NavBar from './common/NavBar';
+import ReactConfetti from 'react-confetti';
 
 require('../styles/login.css')
-
 
 class App extends Component {
 
@@ -26,6 +26,7 @@ class App extends Component {
       levels: [],
       currentPage: null,
       isManager: false,
+      showConfetti: false,
     };
     this.approve_request = this.approve_request.bind(this);
     this.reject_request = this.reject_request.bind(this);
@@ -200,7 +201,9 @@ class App extends Component {
       pointsAvailable: null
     })
   }
-
+  toggleShowConfetti = () => {
+    this.setState({showConfetti: !this.state.showConfetti});
+  }
   setCurrentPage = (page) => {
     this.setState({currentPage: page});
   }
@@ -229,10 +232,13 @@ class App extends Component {
       isManager: this.state.isManager,
       setCurrentPage: this.setCurrentPage,
       refreshEmployeesAndRewards: this.getEmployeesAndRewards,
+      toggleShowConfetti: this.toggleShowConfetti,
+      showConfetti: this.state.showConfetti
     };
     return (
       !this.state.isAuthenticating &&
       <div className="App">
+        {this.state.showConfetti && <ReactConfetti style={{ zIndex: 0 }} />}
         <Header employeeId={this.state.employeeId} pointsAvailable={this.state.pointsAvailable} imgUrl={this.state.imgUrl} firstName={this.state.firstName}/>
         <Router>
           <NavBar showLogin={this.state.isAuthenticated} handleLogout={this.handleLogout} currentPage={this.state.currentPage}/>

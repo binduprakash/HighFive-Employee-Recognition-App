@@ -44,7 +44,7 @@ class Overview extends Component {
             </div>
             <div className="Sidebar-Content">
               <Switch>
-                <AppliedRoute path='/overview/recent-rewards' component={RecentRewards} props={{rewards: approved, employeeId}}/>
+                <AppliedRoute path='/overview/recent-rewards' component={RecentRewards} props={{rewards: approved, employeeId, history: this.props.history, toggleShowConfetti: this.props.toggleShowConfetti, showConfetti: this.props.showConfetti}}/>
                 {
                   this.props.isManager &&
                   <AppliedRoute path='/overview/approval' component={Approvals} props={{rewards: pending, approve_request, reject_request}}/>
