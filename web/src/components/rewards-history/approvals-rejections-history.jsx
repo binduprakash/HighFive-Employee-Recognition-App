@@ -7,7 +7,7 @@ class ApprovalsRejectionsHistory extends Component {
     const { rewards } = this.props;
     return (
       <div className="ApprovalsRejectionsHistory">
-        Approvals &amp; Rejections
+        <p className="history-title"> Approvals &amp; Rejections: </p>
         <table className="table table-striped table-hover">
         <thead>
             <tr>

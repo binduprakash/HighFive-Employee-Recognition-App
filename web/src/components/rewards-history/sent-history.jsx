@@ -7,11 +7,11 @@ class SentHistory extends Component {
     const { rewards } = this.props;
     return (
       <div className="SentHistory">
-        Points Sent to:
+        <p className="history-title"> Points Sent: </p>
         <table className="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Sent to:</th>
+                <th>Sent to</th>
                 <th>Points</th>
                 <th>Status</th>
                 <th>Message</th>

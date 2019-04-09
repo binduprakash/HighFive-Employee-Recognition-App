@@ -3,16 +3,9 @@
 }
 
 .Sidebar {
-    float: right;
     background-color: lightgrey;
-    margin-right: 20px;
     min-height: 400px;
-    width: 450px;
-    display: flex;
     border-radius: 10px 10px 10px 10px;
-    margin-top: -200px;
-    display: flex;
-    align-items: normal;
     flex-direction: column;
     padding: 20px;
 }
@@ -33,4 +26,12 @@
     width: 50px;
     height: 50px;
     border-radius: 100%;
+}
+
+.overview-container {
+    margin-top: 30px;
+}
+
+.profile-table tr td {
+    padding: 5px;
 }
