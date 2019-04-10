@@ -9,7 +9,19 @@ class Approvals extends Component {
     return (
       <div className="Approvals">
         {
-          rewards.length > 0 && rewards.map((reward, index) => <ActionableReward key={index} id={reward.id} from={reward.from} to={reward.to} level={reward.level} on_approve={approve_request} on_reject={reject_request} />)}
+          rewards.length > 0 && rewards.map(
+            (reward, index) => <ActionableReward 
+                                    key={index} 
+                                    id={reward.id} 
+                                    from={reward.from} 
+                                    to={reward.to} 
+                                    level={reward.level} 
+                                    on_approve={approve_request} 
+                                    on_reject={reject_request} 
+                                    approver_message={reward.approver_message}
+                                />
+          )
+        }
       </div>
     );
   }

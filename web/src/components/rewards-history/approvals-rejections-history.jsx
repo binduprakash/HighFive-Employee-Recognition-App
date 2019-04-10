@@ -26,7 +26,7 @@ class ApprovalsRejectionsHistory extends Component {
                 to= {reward.to}
                 level= {reward.level}
                 status= {reward.status}
-                rewardMsg= {reward.reward_message}
+                rewardMsg= {reward.approver_message}
                 date= {reward.created_at}
                 />)}
         </table>
