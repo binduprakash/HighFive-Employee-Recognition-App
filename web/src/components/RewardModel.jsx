@@ -24,11 +24,10 @@ class RewardModel extends React.Component {
               </Row>
               <Row>
                 {this.props.reward && 
-                  <Col style={{'text-align' : 'center'}}>
+                  <Col style={{'text-align' : 'center', 'font-size' : '22px'}}>
                     {this.props.reward.reward_message}
                   </Col>
                 }
-                
               </Row>
             </Modal.Body>
             <Modal.Footer>

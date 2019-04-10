@@ -40,6 +40,17 @@ User/Employee receiving the rewards should be able to receive a slack notificati
 
 ## Final Product 
 
+![Submit Recognition:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/submit_recognition.gif)
+
+![Slack Notification | approval:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/slack_approval.png)
+
+![Web App | approval:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/web_app_approval.png)
+
+
+![Slack Notification and slash command:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/Slack_notification_and_slash_command.gif)
+
+![Recognize and Redeem Process:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/Recognition_and_redeem.gif)
+
 
 
 ## Dependencies 
@@ -73,11 +84,8 @@ User/Employee receiving the rewards should be able to receive a slack notificati
 Please refer to Slack API documentation for additional information: https://api.slack.com/
 
 * a Slack team would need to be created as well as a Slack App to handle functionality
-* employee table in database must have valid slack ID for function to work
 
 ### Slash Command
-
-* Need to create a slash command in Slack API while logged in with App admin credentials
 
 * Reqeust URL needs to be defined with route to handle, including /slack 'route' for the web app to handle the request from Slack user
 * App 'Verification Token' needs to be stored in .env file to authenticate requests sent to the route
@@ -87,14 +95,6 @@ Please refer to Slack API documentation for additional information: https://api.
 ### Sending Notifications to Users on web app events | uses api/chat.postMessage
 
 * Slack 'oAuth Token' needs to be stored in .env file for Slack to handle http request
-
-
-
-## Slack Experience
-
-Slash Command to request points available:
-
-![Slash Command to request points total:](https://github.com/binduprakash/HighFive-Employee-Recognition-App/blob/master/web/public/slash_command_gif.gif)
 
 
 
