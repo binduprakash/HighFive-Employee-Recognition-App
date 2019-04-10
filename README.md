@@ -2,21 +2,39 @@
 
 ## Project Description 
 
-Project High Five is a multilayered web application that helps employees within an organization streamline peer to peer recognition. The company brings together specific team operations so you can track employee engagement and build reward systems to improve that engagement over time. 
+Project High Five is a multilayered web application that helps employees within an organization streamline peer recognition, feedback and Slack integration. Businesses that use Slack will love the integration. It’s easy for users to adopt and for the businesses to begin seeing employee engagement increase.
 
-Employees can send and receive points and feedback based on their performance, engagement and management around their day-to-day activities and/or projects involved within the organization. 
+Employees can send and receive points, feedback based on their performance, engagement and management around their day-to-day activities, projects, team intiatives involved within the organization. Based on the available points employees can also redeem them to purchase gift cards, invest in professional development courses and contribute to local charities. 
 
 
 ## Setup
-1. Create seperate folder for React - web and Ruby on Rails - server.
+1. Create seperate folders for React - web and Ruby on Rails - server environments.
 2. Run `npx create-react-app my-app` to install the boiler plate code and dependencies in React - web folder.
 3. Run `rails new api_app_name --api` to install the dependencies in Ruby on Rials - server folder. 
-4. Run `bin/rake db:reset` to create, load and seed db.
-5. Run `bin/rails s -b 0.0.0.0` to start the rails server.
-6. Run `npm start` to start the React server.
+4. Run `bin/rake db:reset` to create, load and seed db in rails server.
+5. Run `bundle install` to install dependencies in rails server folder.
+6. Run `bin/rails s -b 0.0.0.0` to start the rails server.
+7. Run `npm install` to install dependencies in React web folder.
+8. Run `npm start` to start the React server.
 
 
 ## Functional Requirements (High Level)
+
+### Recognition Flow 
+User/Employee sending the rewards should be able to recognize a peer based on their contributions to team projects and intiatives.
+* On the Overview page, user should be able to select the appropriate peer to recognize and alot a specific point level (between Level 1 - 5) and submit the recognition for manager's approval.
+* User should be able to review points sent history to peers under the 'Sent' points tab on the Rewards History Page.
+
+### Approval Flow 
+Manager/Approver should be able to receive slack notifications related to recognitions and be able approve/reject the recognitions based on reward authenticity.
+* Under the approvals tab on the overview page, manager should be able to view recognition requests and approve/reject them. 
+* Once approved, manager should be able to view approved/rejected history under 'Approvals & Rejections' tab on Rewards History page.
+
+### Redemption Flow 
+User/Employee receiving the rewards should be able to receive a slack notifications when they are rewarded, be able to view the points available on slack and be able to redeem the points on the redemption page.
+* Under the 'Recent Rewards' tab on the Overview page, user should be able to view the rewards received from a peer. 
+* User should be able to review points recived history from peers under the 'Received' points tab on the Rewards History Page.
+* While redeeming the points, user should be able to able to view and add the gift cards to the cart, proceed to check out and review/submit the order.
 
 
 
@@ -30,8 +48,11 @@ Employees can send and receive points and feedback based on their performance, e
 
 * axios 0.18.0
 * bootstrap ^4.3.1
+* prop-types ^15.7.2
 * react ^16.8.6
+* react-avatar ^3.6.0
 * react-bootstrap ^1.0.0-beta.6
+* react-confetti ^2.7.3
 * react-cookie ^3.1.2
 * react-dom ^16.8.6"
 * react-router-dom ^5.0.0
