@@ -48,7 +48,7 @@ class Redeem extends React.Component {
   addToCart = (redeemItemId, showAlert=true) => {
     let cart = this.state.cart;
     const redeemItem = this.state.redeemItems.find((value) => {
-      if(value.id == redeemItemId){
+      if(value.id === redeemItemId){
         return value;
       }
     });
