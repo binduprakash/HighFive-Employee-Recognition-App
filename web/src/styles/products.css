@@ -61,11 +61,12 @@ a.myCart:hover {
     }
 
 .description {
-  font-size: 12px;
-  min-height: 56px;
+  font-size: 15px;
+  min-height: 88px;
   padding-left: 15px;
   padding-right: 15px;
   margin-bottom: 0px;
+  text-align: justify;
 }
 
 .price {

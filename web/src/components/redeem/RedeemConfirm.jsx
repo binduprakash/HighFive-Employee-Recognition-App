@@ -18,7 +18,7 @@ class RecentRewards extends Component {
               <tbody>
                 <tr>
                   <td className="col-center">
-                    <img alt="check-mart" src= {`http://localhost:3000/check-mark.png`}  style={{height: "200px", width: "160px"}}/>
+                    <img alt="check-mart" src= {`http://localhost:3000/check-mark.png`}/>
                     <br/>
                     <h5>Order has been placed successfully!</h5>
                     <p>Please check your email inbox to know further details. You have {this.props.pointsAvailable} points remaining.</p>
