@@ -9,20 +9,22 @@ class Profile extends Component {
       <div className="Profile">
         <span className="history-title">My Profile</span>
         <div className="Profile__Details">
-            <Avatar size="200" round={10} src={`http://localhost:3000/${imgUrl}`} value={firstName}/>
+            <Avatar size="200" round="8%" src={`http://localhost:3000/${imgUrl}`} value={firstName}/>
             <table className="profile-table">
-              <tr>
-                <td style={{'font-weight': 'bold', 'width': '50px'}}>Name</td>
-                <td>{firstName + ' ' + lastName}</td>
-              </tr>
-              <tr>
-                <td style={{'font-weight': 'bold'}}>Role</td>
-                <td>{title}</td>
-              </tr>
-              {department != null && <tr>
-                <td style={{'font-weight': 'bold'}}>Team</td>
-                <td>{department}</td>
-              </tr>}
+            <tbody>
+                <tr>
+                  <td style={{'fontWeight': 'bold', 'width': '50px'}}>Name</td>
+                  <td>{firstName + ' ' + lastName}</td>
+                </tr>
+                <tr>
+                  <td style={{'fontWeight': 'bold'}}>Role</td>
+                  <td>{title}</td>
+                </tr>
+                {department != null && <tr>
+                  <td style={{'fontWeight': 'bold'}}>Team</td>
+                  <td>{department}</td>
+                </tr>}
+              </tbody>
             </table>
         </div>
       </div>

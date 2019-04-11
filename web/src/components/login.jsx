@@ -36,11 +36,11 @@ export default class Login extends Component {
                 this.props.userHasAuthenticated(
                     response.data['isAuthenticated'],
                     response.data['employee_id'],
-                    response.data['img_url'],
                     {
                         firstName: response.data['first_name'],
                         lastName: response.data['last_name'],
                         title: response.data['title'],
+                        imgUrl: response.data['img_url'],
                         department:  response.data['department'],
                         isManager: response.data['is_manager']
                     }

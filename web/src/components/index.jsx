@@ -2,7 +2,7 @@ import React, { Component, useState} from "react";
 import { BrowserRouter as Router, Link, withRouter } from 'react-router-dom';
 import Header from './common/header'
 import Routes from './Routes'
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import { compose } from 'recompose';
 import API from '../api';
 import NavBar from './common/NavBar';
@@ -18,8 +18,9 @@ class App extends Component {
       isAuthenticated: false,
       isAuthenticating: true,
       employeeId: null,
-      imgUrl: null,
       firstName: null,
+      lastName: null,
+      imgUrl: null,
       pointsAvailable: null,
       employees: [],
       rewards: [],
@@ -34,9 +35,9 @@ class App extends Component {
   componentDidMount(){
     const { cookies } = this.props;
     if (cookies.get('isAuthenticated') === 'true') {
-      this.userHasAuthenticated(true, cookies.get('employeeId') || null, cookies.get('imgUrl') || null, cookies.get('profile') || null);
+      this.userHasAuthenticated(true, cookies.get('employeeId') || null, cookies.get('profile') || null);
     } else {
-      this.userHasAuthenticated(false, null, null, {});
+      this.userHasAuthenticated(false, null, {});
     }
     this.setState({ isAuthenticating: false });
   }  
@@ -48,10 +49,11 @@ class App extends Component {
         employees
       };
 
-      let employeeObject = employees.find(x => x.id === employeeId)
-      if (authenticated === true & employeeObject !== undefined) {
+      let employeeObject = employees.find(x => x.id == employeeId)
+      if (authenticated && employeeObject !== undefined) {
         newState.pointsAvailable = employeeObject.available_points;
-      }
+      } 
+
       this.setState(newState, () => {
         const { employees: freshEmployees, levels } = this.state;
         API.get('rewards').then(res => {
@@ -85,9 +87,10 @@ class App extends Component {
   }
 
 
-  userHasAuthenticated = (authenticated, employeeId, imgUrl = '', { 
+  userHasAuthenticated = (authenticated, employeeId, { 
     firstName = '',
     lastName = '',
+    imgUrl = '',
     title = '',
     department = '',
     isManager = false,
@@ -96,7 +99,6 @@ class App extends Component {
     cookies.set("isAuthenticated", authenticated, {path: "/"});
     if(authenticated) {
       cookies.set("employeeId", employeeId, {path: "/"});
-      cookies.set("imgUrl", imgUrl, {path: "/"});
       cookies.set("profile", {
         firstName,
         lastName,
@@ -176,29 +178,27 @@ class App extends Component {
   }
 
   approve_request(id) {
-    console.log(`approved ${id}`)
     const approved_request = this.state.rewards.find(r => r.id === id);
     approved_request.status = 'approved';
     this.update_request(approved_request);
   }
 
   reject_request(id) {
-    console.log(`rejected ${id}`)
     const rejected_request = this.state.rewards.find(r => r.id === id);
     rejected_request.status = 'rejected';
     this.update_request(rejected_request);
   }
   
   handleLogout = event => {
+    console.log('handle Logout called!');
     const { cookies } = this.props;
-    this.userHasAuthenticated(false, null, null, {});
-    cookies.remove('cart');
+    this.userHasAuthenticated(false, null, {});
     cookies.set('isAuthenticated', false, {path: "/"});
-    cookies.remove('employeeId', '');
-    cookies.remove('imgUrl', '');
-    cookies.remove('profile', '');
+    cookies.remove('employeeId', { path: '/' });
+    cookies.remove('profile', { path: '/' });
+    cookies.remove('cart', { path: '/' });
     this.setState({
-      pointsAvailable: null
+      pointsAvailable: null,
     })
   }
   toggleShowConfetti = () => {

@@ -5,7 +5,6 @@ import ActionableReward from './approval-request';
 class Approvals extends Component {
   render() {
     const { rewards, approve_request, reject_request } = this.props;
-    console.log(this.props);
     return (
       <div className="Approvals">
         {

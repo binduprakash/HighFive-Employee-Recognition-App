@@ -31,21 +31,23 @@ class Recognize extends React.Component {
       this.props.history.push("/login");
     } else {
       this.props.setCurrentPage('recognize');
+      const employeeId = this.props.employeeId;
+      
       API.get('employees').then(res => {
           const employees = res.data;
           this.setState({ employees });
           //find object in employees array of objects, that relates to user currently logged in
           //then setState of the manager to be used in the form POST
-          let employeeObject = this.state.employees.find(x => x.id === this.props.employeeId)
-          
+          let employeeObject = employees.find(x => x.id == employeeId);
+        
           //Creating another array of employee objects, 
           //and filtering out current logged in user, so they don't show up in dropdown list
-          let employeeToFilter = this.props.employeeId;
-          const otherEmployeeList = this.state.employees.filter(function(employee) {
-            return employee.id !== employeeToFilter
+          let employeeToFilter = employeeId;
+          const otherEmployeeList = employees.filter(function(employee) {
+            return employee.id != employeeToFilter
           })
-          const approver = this.state.employees.find((employee) => {
-            if(employee.id === employeeObject.manager_id){
+          const approver = employees.find((employee) => {
+            if(employee.id == employeeObject.manager_id){
               return employee;
             }
           });

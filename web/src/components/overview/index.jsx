@@ -21,7 +21,6 @@ class Overview extends Component {
   }
   render() {
     const { location, rewards: { pending, approved }, approve_request, reject_request, employeeId, pointsAvailable, imgUrl, firstName, lastName, title, department } = this.props;
-    console.log(location);
     return (
       <Container className="overview-container">
         <Row>

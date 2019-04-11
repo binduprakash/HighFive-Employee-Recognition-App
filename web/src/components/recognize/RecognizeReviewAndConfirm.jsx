@@ -12,18 +12,16 @@ class RecognizeReviewAndConfirm extends React.Component {
         this.props.history.push('/recognize/select_recipient');
     }
     render() {
-        console.log(this.props);
         const recipient = this.props.employees.find((employee)=>{
-            if(employee.id === this.props.selectedRecipientId){
+            if(employee.id == this.props.selectedRecipientId){
                 return employee;
             }
         });
         const pointsLevel = this.props.pointsLevels.find((pointLevel)=>{
-            if(pointLevel.id === this.props.selectPointsLevelId){
+            if(pointLevel.id == this.props.selectPointsLevelId){
                 return pointLevel;
             }
         });
-        console.log(recipient);
         return (
             <Container className="step-container">
                 {this.props.submissionSuccessful === true ? 

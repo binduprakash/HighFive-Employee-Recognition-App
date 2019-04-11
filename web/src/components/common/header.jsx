@@ -8,7 +8,7 @@ class Overview extends Component {
     if (this.props.pointsAvailable !== null) {
       return (
         <p id="userDetails">
-          <Avatar value={this.props.firstName} size="50" round={true} src={`http://localhost:3000/${this.props.imgUrl}`} />
+          <Avatar value={this.props.firstName} size="50" round="100%" src={`http://localhost:3000/${this.props.imgUrl}`} />
           <br/>
           Hi {this.props.firstName}!
           <br/>
